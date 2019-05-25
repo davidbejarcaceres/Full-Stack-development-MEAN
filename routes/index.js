@@ -8,36 +8,8 @@ router.get('/', function(req, res, next) {
   '{ "firstName":"Anna" , "lastName":"Smith" },' +
   '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
 
-
-  var estudiantes = [new Employee("David", "Bejar"), new Employee("Mireya", "Ortiz")];
-
-
-
-  res.render('index', { title: 'Express', estudiantes: Employee });
+  res.render('index', { title: 'Express' });
+  //res.redirect('http://example.com');
 });
 
 module.exports = router;
-
-
-class Employee{
-  constructor(firstname, lastname) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-  }
-
-  getFirstname(){
-    return this.firstname;
-  }
-
-  getLastname(){
-    return this.lastname;
-  }
-
-  setFirstname(firstname){
-    this.firstname = firstname;
-  }
-
-  setLastName(lastname){
-    this.lastname = lastname;
-  }
-}
