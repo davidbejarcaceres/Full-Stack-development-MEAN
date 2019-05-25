@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 
-var dbURI = 'mongodb://localhost/Loc8r';
-mongoose.connect(dbURI);
+var dbURI = 'mongodb://localhost/Mytrips';
+mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {
@@ -39,4 +39,4 @@ process.on('SIGINT', function() {
 });
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('./locations');
+require('./trip');
