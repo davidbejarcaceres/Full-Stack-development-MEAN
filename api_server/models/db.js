@@ -4,7 +4,14 @@ const ObjectId = Schema.ObjectId;
 
 
 var dbURI = 'mongodb://localhost/Mytrips';
-mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(dbURI, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+
+// Access the mongoose-dbref module and install everything
+var dbref = require("mongoose-dbref");
+var utils = dbref.utils
+
+// Install the types, plugins and monkey patches
+var loaded = dbref.install(mongoose);
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {

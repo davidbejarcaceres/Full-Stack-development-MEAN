@@ -2,10 +2,20 @@
   "name": "finalproject",
   "version": "0.0.0",
   "private": true,
-  "author": { "name" : "David Béjar Cáceres"
-            , "email" : "davidbejar2009@gmail.com"
-            },
-  "license": "GNU General Public License, version 2",
+  "repository": {
+    "type": "GitHub",
+    "url": "https://github.com/davidbejarcaceres/Full-Stack-development-MEAN"
+  },
+  "author": {
+    "name": "David Béjar Cáceres",
+    "email": "davidbejar2009@gmail.com"
+  },
+  "licenses": [
+    {
+      "type": "gpl2",
+      "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
+    }
+  ],
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -13,11 +23,13 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "hjs": "~0.0.6",
     "http-errors": "~1.6.3",
+    "mongodb": "^3.2.6",
     "mongoose": "^5.5.11",
+    "mongoose-dbref": "0.0.4",
     "morgan": "~1.9.1",
     "pug": "^2.0.3",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "swagger-ui-express": "^4.0.4"
   }
 }

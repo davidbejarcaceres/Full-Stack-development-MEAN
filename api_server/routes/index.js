@@ -2,39 +2,28 @@ var express = require('express');
 var router = express.Router();
 
 var ctrlMyTrips = require('../controllers/trips');
-var ctrlReviews = require('../controllers/reviews');
+var ctrlTravelers = require('../controllers/travelers');
 
 /* trips pages */
-router.get('/helloWorld', ctrlMyTrips.helloWord);
-router.get('/trips', ctrlMyTrips.tripsList);
+router.get('/trips/helloWorld', ctrlMyTrips.helloWord);
+router.get('/trips/one', ctrlMyTrips.findOneTrip);
+router.get('/trips', ctrlMyTrips.tripList);
+router.get('/trips/:id?', ctrlMyTrips.tripFindById);
+router.post('/trips', ctrlMyTrips.tripCreate);
+router.delete('/trips/:id?', ctrlMyTrips.tripDeleteByID);
+router.put('/trips/:id?', ctrlMyTrips.tripUpdateByID);
+router.post('/tripTraveler', ctrlMyTrips.tripCreateTripTraveler);
 
 
-/* Locations pages */
-// router.get('/location', ctrlLocations.locationList);
-// router.get('/location/findOne', ctrlLocations.findOne);
-// router.post('/location', ctrlLocations.locationsCreate);
-// router.get('/location/:id?', ctrlLocations.locationsFindById);
-// router.put('/location/:id?', ctrlLocations.locationsUpdate);
-// router.delete('/location/:id?', ctrlLocations.locationsDelete);
-// router.get('/locations/:lng/:lat', ctrlLocations.locationsListByDistance);
-
-
-// /* Locations pages */
-// router.get('/location/:id/reviews', ctrlReviews.reviewsList);
-// router.post('/location/:id/reviews', ctrlReviews.reviewsCreate);
-// router.get('/location/:id/reviews', ctrlReviews.reviewsFindById);
-// router.put('/location/:id/', ctrlReviews.reviewsUpdate);
-// router.get('/location/:id/findOne', ctrlReviews.findOne);
-
-// // Codigo Original Profe
-// router.post('/locations/:locationid/reviews', ctrlReviews.reviewsCreate2);
-// router.get('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
-// router.put('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
-// router.delete('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
-
-
-
-
+/* trips pages */
+router.get('/travelers', ctrlTravelers.travelersList);
+router.get('/travelers/:id?/trips', ctrlTravelers.travelerTrips);
+router.get('/travelers/one', ctrlTravelers.findOneTraveler);
+router.post('/travelers', ctrlTravelers.travelerCreate);
+router.get('/travelers/:id?', ctrlTravelers.travelerById);
+router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
+router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
+// router.post('/travelers', ctrlTravelers.tripCreate);
 
 
 module.exports = router;
