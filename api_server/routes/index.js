@@ -30,6 +30,3 @@ router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
 router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
 
 module.exports = router;
-
-
-

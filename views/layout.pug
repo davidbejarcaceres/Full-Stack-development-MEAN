@@ -5,23 +5,13 @@ html
 		title= title
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons')
 		link(rel='stylesheet', href='https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css', integrity='sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX', crossorigin='anonymous')
+		link(rel="stylesheet", href="/stylesheets/style.css")
 	body
 	.navbar.navbar-default.navbar-fixed-top
 			.container
 				.navbar-header
-					a.navbar-brand(href='/') Loc8r
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-				#navbar-main.navbar-collapse.collapse
-					ul.nav.navbar-nav
-						li
-							a(href='/location/') Location
-						li
-							a(href='/location/review/new') New
-						li
-							a(href='/about/') About
+					a(href='/')
+						img(border='0', alt='Logo Universidad de almería', src='/images/contratipoHorizontal.png')
 		
 	.container
 		block content
@@ -29,7 +19,8 @@ html
 		footer
 			.row
 				.col-xs-12
-					small &copy; Master Tecnologias y Aplicaciones Informaticas 2017
+					small &copy; Developer: David Béjar Cáceres 2019
+					img(src='/images/escudoMonocromo.png')
 
 	script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
 	script(src='https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js' integrity='sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U', crossorigin='anonymous')

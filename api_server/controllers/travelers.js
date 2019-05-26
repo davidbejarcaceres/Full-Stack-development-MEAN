@@ -3,20 +3,12 @@ var trips = require("../models/trip");
 var mongoose = require("mongoose");
 var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
-var bodyParser = require("body-parser");
-var Schema = mongoose.Schema;
-
-
+const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);    
 };
-
-
-module.exports.helloWord = function (req, res) {
-    return res.status(200).send("Hi from NodeJS");
-}
 
 // GET ALL TRIPS
 module.exports.travelersList = function(req, res, next) {    
@@ -155,12 +147,10 @@ module.exports.findOneTraveler = function (req, res) {
   });
 };
 
-
 // GET FIRST Traveler in DB
 module.exports.findFirstInDB = function (req, res) {
     dbTraveler.find().populate('trips').exec(function (err, traveler) {
     if (err) return res.status(404).send(err);
-
     return res.status(200).send(traveler[0]);
   });
 };
@@ -201,21 +191,3 @@ module.exports.travelerDeleteByID = function (req, res) {
         return res.status(200).send("DELETED!")
     });
 }
-
-// PUT find by ID
-module.exports.locationsUpdate = function(req, res, next) {    
-    dbTrips.findById(req.params.id).exec(function (err, location){
-        res
-        .status(20)
-        .send(location);
-    })
-};
-
-// PUT find by ID
-module.exports.locationsDelete = function(req, res, next) {    
-    dbTrips.findById(req.params.id).exec(function (err, location){
-        res
-        .status(204)
-        .send(location);
-    })
-};

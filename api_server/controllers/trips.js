@@ -3,19 +3,13 @@ var trips = require("../models/trip");
 var mongoose = require("mongoose");
 var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
-var Schema = mongoose.Schema;
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);    
 };
 
-
-module.exports.helloWord = function (req, res) {
-    return res.status(200).send("Hi from NodeJS");
-}
-
-// GET ALL TRIPS
+// GET ALL TRIPS: api/trips
 module.exports.tripList = function(req, res, next) {    
     dbTrips.find().exec(function (err, trip){
         if (err) {
@@ -26,7 +20,7 @@ module.exports.tripList = function(req, res, next) {
     })    
 };
 
-// GET Trip by ID
+// GET Trip by ID: /api/trips/:id?
 module.exports.tripFindById = function(req, res, next) {    
     dbTrips.findById(req.params.id).exec(function (err, trip){
         if (err) {
@@ -37,7 +31,7 @@ module.exports.tripFindById = function(req, res, next) {
     })
 };
 
-// GET all travelers from one trip
+// GET all travelers from one trip: /api/trips/:id?/travelers
 module.exports.tripTravelers = function(req, res, next) {    
     dbTrips.findById(req.params.id).populate('travelers').exec(function (err, trip) {
         if (err) return res.status(404).send(err);
@@ -45,6 +39,7 @@ module.exports.tripTravelers = function(req, res, next) {
       });
 };
 
+// /api//trips/all/:query?
 // Search for a trip in DB with a query, probably intensive task for the server
 module.exports.findInDB = function(req, res, next) {
     var yearTrip = 0;    
@@ -77,6 +72,7 @@ module.exports.tripCreate = function(req, res, next) {
       });
 };
 
+//POST Creates Traveler + Trip at the same time: /api/tripTraveler
 module.exports.tripCreateTripTraveler = function(req, res, next) {
     dbTraveler.create({        
         firstname: req.body.traveler.firstname,
@@ -104,7 +100,7 @@ module.exports.tripCreateTripTraveler = function(req, res, next) {
     });    
 };
 
-// GET Find ONE
+// GET FIND ONE: api/trips/one
 module.exports.findOneTrip = function (req, res) {
     dbTrips.findOne().populate('travelers').exec(function (err, trip) {
     if (err) return res.status(404).send(err);
@@ -112,7 +108,7 @@ module.exports.findOneTrip = function (req, res) {
   });
 }
 
-// DELETES ONE
+// DELETES TRIP BY ID: /api/trips/:id?
 module.exports.tripDeleteByID = function (req, res) {
     dbTrips.deleteOne({ _id: req.params.id }, function (err) {
         if(err) return res.status(404).send(err)
@@ -120,6 +116,7 @@ module.exports.tripDeleteByID = function (req, res) {
     });
 }
 
+// PUT UPDATES TRIP: /api/trips/:id?
 module.exports.tripUpdateByID = function (req, res) {
     dbTrips.findById(req.params.id).exec(function (err, tripOld){
         if (err) {
@@ -142,22 +139,3 @@ module.exports.tripUpdateByID = function (req, res) {
         }
     })    
 }
-
-// PUT find by ID
-module.exports.locationsUpdate = function(req, res, next) {    
-    dbTrips.findById(req.params.id).exec(function (err, location){
-        res
-        .status(200)
-        .send(location);
-    })
-};
-
-// PUT find by ID
-module.exports.locationsDelete = function(req, res, next) {    
-    dbTrips.findById(req.params.id).exec(function (err, location){
-        res
-        .status(204)
-        .send(location);
-    })
-};
-

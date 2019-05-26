@@ -1,8 +1,47 @@
 body {
-  padding: 50px;
+  padding: 5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+body > div.navbar{
+  background-color: #2f6194;
+}
+
+body > div.container > h1{
+  margin-top: 10px;
+  width: auto;
+  margin: auto;
+}
+
+.container{
+  padding: 10px;
+  margin: 20px;
+}
+
+img{
+  width: 48px;
+  height: 48px;
+}
+
+body > div.navbar.navbar-default.navbar-fixed-top > div > div > a:nth-child(1) > img{
+  width: 200px;
+  height: 80px;
+  margin-right: 100px;
+}
+
+.navbar>.container{
+  margin: 0px;
+  padding: 0px;
+}
+
 a {
-  color: #00B7FF;
+  color: rgb(0, 22, 31);
+}
+
+body > div.container > footer{
+  margin-top: 10%;
+}
+
+body > div.container > footer > div > div > small{
+  font-size: 1em;
 }
