@@ -70,8 +70,41 @@ module.exports.travelerAddsTrip = function(req, res, next) {
     })
 };
 
+// Traveler UPDATES a trip from his list of trips
+module.exports.travelerUpdatesTrip = function(req, res, next) {    
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if (traveler == null) return res.status(404).send(`ERROR: No traveler with ID: ${req.params.id}`);
+            
+            dbTrips.findById(req.params.idTrip).exec(function (err, tripOld){
+                if (err) {
+                    return res.status(404).send({message: "Bad request"});
+                } else {
+                    if (tripOld == null) return res.status(404).send(`ERROR: No trip with ID: ${req.params.idTrip}`);
+
+                    // Checks if no values are passed and updates
+                    tripOld.country =  ((req.body.country) ? req.body.country : tripOld.country)
+                    tripOld.city = ((req.body.city) ? req.body.city : tripOld.city)
+                    tripOld.place = ((req.body.place) ? req.body.place : tripOld.place)
+                    tripOld.year = ((req.body.year) ? req.body.year : tripOld.year)
+                    tripOld.month = ((req.body.month) ? req.body.month : tripOld.month)
+                    tripOld.rating = ((req.body.rating) ? req.body.rating : tripOld.rating)
+                    tripOld.notes = ((req.body.notes) ? req.body.notes : tripOld.notes)
+        
+                    dbTrips.findByIdAndUpdate(req.params.idTrip, tripOld, {new: true}, function(err, updatedTrip) {
+                        if (err) return res.status(404).send({message: "Bad request"});
+                        return res.status(200).send(updatedTrip);
+                    });            
+                }
+            })
+        }
+    })
+};
+
 // Traveler Deletes a trip from his list of trips
-module.exports.travelerDeleteTrip = function(req, res, next) {    
+module.exports.travelerDeletesTrip = function(req, res, next) {    
     dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
         if (err) {
             return res.status(404).send({message: "Bad request"});
@@ -88,7 +121,7 @@ module.exports.travelerDeleteTrip = function(req, res, next) {
             };
 
             // Saves the player with the changes
-            dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips} , function(err, updatedElement) {
+            dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips}, {new: true} , function(err, updatedElement) {
                 if (err) return res.status(404).send({message: "Bad request"});
                 return res.status(200).send("Trip Deleted!");
             });  
