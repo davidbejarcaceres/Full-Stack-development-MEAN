@@ -38,6 +38,6 @@ var tripSchema = new mongoose.Schema({
     notes: String,
 });
 
-
+tripSchema.index( { notes: "text" }) // Indexes the notes field to be able to search in the notes
 mongoose.model('Trip', tripSchema);
 mongoose.model('Traveler', travelerSchema)

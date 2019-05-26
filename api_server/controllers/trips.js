@@ -3,10 +3,7 @@ var trips = require("../models/trip");
 var mongoose = require("mongoose");
 var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
-var bodyParser = require("body-parser");
 var Schema = mongoose.Schema;
-
-
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -40,6 +37,31 @@ module.exports.tripFindById = function(req, res, next) {
     })
 };
 
+// GET all travelers from one trip
+module.exports.tripTravelers = function(req, res, next) {    
+    dbTrips.findById(req.params.id).populate('travelers').exec(function (err, trip) {
+        if (err) return res.status(404).send(err);
+        return res.status(200).send(trip.travelers);
+      });
+};
+
+// Search for a trip in DB with a query, probably intensive task for the server
+module.exports.findInDB = function(req, res, next) {
+    var yearTrip = 0;    
+    ( isNaN(parseInt(req.params.query)) == true ) ? yearTrip = 0 : yearTrip = parseInt(req.params.query)
+
+    dbTrips.find({$or:[{country: req.params.query}, {notes: req.params.query} , {city: req.params.query}, {place: req.params.query}, {month: req.params.query}, {year: yearTrip}]}).exec(function (err, trips) {
+        if (err) return res.status(404).send(err);
+        // Searches also in notes
+        dbTrips.find({$text: { $search: req.params.query}}).exec(function (err, addedByNotes) {
+            if (err) return res.status(404).send(err);
+            // If query found in notes, then add those elements to the list
+            if (addedByNotes.length != 0) trips.push(addedByNotes);
+            return res.status(200).send(trips);
+          });
+      });
+};
+
 
 // POST ADD Trip /api/trips
 module.exports.tripCreate = function(req, res, next) {
@@ -56,7 +78,6 @@ module.exports.tripCreate = function(req, res, next) {
 };
 
 module.exports.tripCreateTripTraveler = function(req, res, next) {
-    
     dbTraveler.create({        
         firstname: req.body.traveler.firstname,
         lastname: req.body.traveler.lastname
@@ -73,13 +94,11 @@ module.exports.tripCreateTripTraveler = function(req, res, next) {
             rating: req.body.rating,
             notes: req.body.notes
           }, function(err, trip) {              
-              if (err) return res.status(404).send({message: "Bad request"});
-
-              dbTraveler.findByIdAndUpdate(traveler.id, { trips: trip.id }  , function(err, res) {
-                // Updated at most one doc, `res.modifiedCount` contains the number
-                // of docs that MongoDB updated
                 if (err) return res.status(404).send({message: "Bad request"});
-              });
+                // Find the object in Database and Updates
+                dbTraveler.findByIdAndUpdate(traveler.id, { trips: trip.id }  , function(err, res) {
+                if (err) return res.status(404).send({message: "Bad request"});
+                });
               return sendJSONresponse(res, 201, trip);
           });
     });    
@@ -116,11 +135,9 @@ module.exports.tripUpdateByID = function (req, res) {
             tripOld.rating = ((req.body.rating) ? req.body.rating : tripOld.rating)
             tripOld.notes = ((req.body.notes) ? req.body.notes : tripOld.notes)
 
-            dbTrips.findByIdAndUpdate(req.params.id, tripOld, {new: true}, function(err, numberUpdated) {
-                // Updated at most one doc, `res.modifiedCount` contains the number
-                // of docs that MongoDB updated
+            dbTrips.findByIdAndUpdate(req.params.id, tripOld, {new: true}, function(err, updatedTrip) {
                 if (err) return res.status(404).send({message: "Bad request"});
-                return res.status(200).send(numberUpdated);
+                return res.status(200).send(updatedTrip);
             });            
         }
     })    

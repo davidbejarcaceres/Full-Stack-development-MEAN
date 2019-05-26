@@ -40,6 +40,70 @@ module.exports.travelerById = function(req, res, next) {
     })
 };
 
+// Traveler Adds a trip to his/her list of trips
+module.exports.travelerAddsTrip = function(req, res, next) {    
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if (traveler == null) return res.status(404).send(`ERROR: No element with ID: ${req.params.id}`);
+            // Creates the new trip
+            dbTrips.create({
+                travelers: traveler.id, // Asigns the traveler to the new trip    
+                country: req.body.country,
+                city: req.body.city,
+                place: req.body.place,
+                year: req.body.year,
+                month: req.body.month,
+                rating: req.body.rating,
+                notes: req.body.notes
+              }, function(err, trip) {              
+                    if (err) return res.status(404).send({message: "Bad request"});
+                    // Adds the trip to the traveler list of trips
+                    traveler.trips.push(trip.id);
+                    dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips} , function(err, updatedElement) {
+                        if (err) return res.status(404).send({message: "Bad request"});
+                        return res.status(200).send("Trip Added!");
+                    });                  
+              });
+        }
+    })
+};
+
+// Traveler Deletes a trip from his list of trips
+module.exports.travelerDeleteTrip = function(req, res, next) {    
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if (traveler == null) return res.status(404).send(`ERROR: No traveler with ID: ${req.params.id}`);
+            // Deletes the trip from trips
+            for (let index = 0; index < traveler.trips.length; index++) {
+                const element = traveler.trips[index];
+                if (element.id == req.params.idTrip){
+                    traveler.trips.splice(index, 1);
+                    console.log("deleting...");
+                    break;
+                }
+            };
+
+            // Saves the player with the changes
+            dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips} , function(err, updatedElement) {
+                if (err) return res.status(404).send({message: "Bad request"});
+                return res.status(200).send("Trip Deleted!");
+            });  
+        }
+    })
+};
+
+// Search for a traveler in DB
+module.exports.findInDB = function(req, res, next) {
+    dbTraveler.find({$or:[{firstname: req.params.query}, {lastname: req.params.query}]}).exec(function (err, travelers) {
+        if (err) return res.status(404).send(err);
+        return res.status(200).send(travelers);
+      });
+};
+
 // POST ADD Trip /api/trips
 module.exports.travelerCreate = function(req, res, next) {
     dbTraveler.create({        
@@ -55,6 +119,16 @@ module.exports.findOneTraveler = function (req, res) {
     dbTraveler.findOne().populate('trips').exec(function (err, traveler) {
     if (err) return res.status(404).send(err);
     return res.status(200).send(traveler);
+  });
+};
+
+
+// GET FIRST Traveler in DB
+module.exports.findFirstInDB = function (req, res) {
+    dbTraveler.find().populate('trips').exec(function (err, traveler) {
+    if (err) return res.status(404).send(err);
+
+    return res.status(200).send(traveler[0]);
   });
 };
 

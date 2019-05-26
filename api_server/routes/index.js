@@ -4,27 +4,29 @@ var router = express.Router();
 var ctrlMyTrips = require('../controllers/trips');
 var ctrlTravelers = require('../controllers/travelers');
 
-/* trips pages */
-router.get('/trips/helloWorld', ctrlMyTrips.helloWord);
+/* TRIPS end-points */
 router.get('/trips/one', ctrlMyTrips.findOneTrip);
 router.get('/trips', ctrlMyTrips.tripList);
 router.get('/trips/:id?', ctrlMyTrips.tripFindById);
+router.get('/trips/:id?/travelers', ctrlMyTrips.tripTravelers);
+router.get('/trips/all/:query?', ctrlMyTrips.findInDB);
 router.post('/trips', ctrlMyTrips.tripCreate);
-router.delete('/trips/:id?', ctrlMyTrips.tripDeleteByID);
+router.post('/tripTraveler', ctrlMyTrips.tripCreateTripTraveler); // Sepcial method to add Traveler and Trip at the same time to DB
 router.put('/trips/:id?', ctrlMyTrips.tripUpdateByID);
-router.post('/tripTraveler', ctrlMyTrips.tripCreateTripTraveler);
+router.delete('/trips/:id?', ctrlMyTrips.tripDeleteByID);
 
-
-/* trips pages */
+/* TRAVELERS end-points */
 router.get('/travelers', ctrlTravelers.travelersList);
 router.get('/travelers/:id?/trips', ctrlTravelers.travelerTrips);
 router.get('/travelers/one', ctrlTravelers.findOneTraveler);
-router.post('/travelers', ctrlTravelers.travelerCreate);
+router.get('/travelers/first', ctrlTravelers.findFirstInDB);
 router.get('/travelers/:id?', ctrlTravelers.travelerById);
-router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
+router.get('/travelers/all/:query?', ctrlTravelers.findInDB);
+router.post('/travelers', ctrlTravelers.travelerCreate);
+router.post('/travelers/:id?/trips', ctrlTravelers.travelerAddsTrip); // Traveler adds a new trip to his list of trips
+router.delete('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerDeleteTrip); // Traveler adds a new trip to his list of trips
 router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
-// router.post('/travelers', ctrlTravelers.tripCreate);
-
+router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
 
 module.exports = router;
 
