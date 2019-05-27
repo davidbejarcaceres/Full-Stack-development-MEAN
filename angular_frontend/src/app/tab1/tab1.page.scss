@@ -1,0 +1,49 @@
+.welcome-card ion-img {
+  max-height: 10vh;
+  overflow: hidden;
+}
+
+.welcome-card{
+  background-color: #fff;
+}
+
+.card-manager{
+  background-color: #3171e0;
+  color: #fff;
+}
+
+.card-manager ion-card-title{
+  background-color: #3171e0;
+  color: #fff;
+  font-weight: bold;
+}
+
+button > ion-ripple-effect{
+  color: #3ae1f7;
+  --ripple-color: #3ae1f7;
+}
+
+button ion-ripple-effect{
+  color: #3ae1f7;
+  --ripple-color: #3ae1f7;
+}
+
+ion-content{
+  --ion-background-color:#f1f1f1;
+}
+
+ion-list{
+  --ion-background-color:#fff;
+}
+
+.ion-img{
+  visibility: hidden;
+}
+
+.full-image{
+  background-color: aqua;
+  width: 50%;
+  height: 50%;
+  align-content: flex-end;
+  align-items: center;
+}

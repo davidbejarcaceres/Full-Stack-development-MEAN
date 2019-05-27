@@ -16,6 +16,11 @@ router.get('/res/images/:imagePath?', function(req, res, next) {
   res.sendFile( pathPublicServer +'/images/' + req.params.imagePath);
 });
 
+/* GETS Any image from the public static directory*/
+router.get('/res/favicon/:faviconPath?', function(req, res, next) {
+  res.sendFile( pathPublicServer +'/favicon/' + req.params.faviconPath);
+});
+
 /* GETS Any resource from the root of public static directory*/
 router.get('/res/files/:filePath?', function(req, res, next) {
   res.sendFile( pathPublicServer +'/files/' +  req.params.filePath);

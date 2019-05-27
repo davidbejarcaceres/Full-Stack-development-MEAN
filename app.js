@@ -6,11 +6,13 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon')
 require("./api_server/models/db");
+var cors = require('cors')
+
 
 
 var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/users');
 var routerApi = require("./api_server/routes/index");
+//var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -26,6 +28,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon' , 'favicon.ico')))
+
+
+const options = {
+  origin: true,
+  "Access-Control-Allow-Credentials": true,
+
+  "Access-Control-Allow-Origin": true,
+  "Access-Control-Allow-Headers": true,
+  "Access-Control-Expose-Headers": true,
+};
+
+app.use(cors()) // CORS Policy allows to all
+
+
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);

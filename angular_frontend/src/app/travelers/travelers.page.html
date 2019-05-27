@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/tab1">
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+        </ion-back-button>
+      </ion-buttons>
+      <ion-title>Manage travelers</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <ion-grid fixed>
+
+          <ion-list class="ion-item-border" *ngIf="travelers">
+              <ion-item button  *ngFor="let traveler of travelers" [routerLink]="['edit-traveler', traveler]" routerDirection="forward">
+                <ion-ripple-effect></ion-ripple-effect>
+                <ion-icon slot="start" name="airplane"></ion-icon>
+                <ion-icon slot="end" name="create"></ion-icon>              
+                <ion-label>
+                    <h2>{{traveler.firstname}}</h2>
+                    <h2>{{traveler.lastname}}</h2>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+
+            <ion-list class="ion-item-border" *ngIf="!travelers">
+                <ion-item button *ngFor="let traveler of [1,2,3,4,5,6]">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-avatar slot="start">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                  </ion-avatar>
+                  <ion-avatar slot="end">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                  </ion-avatar>       
+                  <ion-label>
+                      <h2><ion-skeleton-text width="10%"></ion-skeleton-text></h2>
+                      <h2><ion-skeleton-text width="10%"></ion-skeleton-text></h2>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+    </ion-grid>
+</ion-content>
+
+<ion-footer class="footer-dbc770">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+          <img button (click)="goHome()" routerDirection="root" width="100px" src="http://localhost:3000/res/images/contratipoHorizontal.png">
+        </ion-buttons>
+      <ion-title>Developed by: David Béjar Cáceres 2019</ion-title>
+    </ion-toolbar>
+  </ion-footer>

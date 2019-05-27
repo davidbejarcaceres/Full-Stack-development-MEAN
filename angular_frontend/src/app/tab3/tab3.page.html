@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-avatar slot="start">
+              <img src="assets/images/escudoNegativo.png">
+              <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+      </ion-buttons>
+      <ion-title>
+        Last trips added
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="6" size-xl="6" size-md="6" size-sm="9" size-xs="12">
+        
+        <div *ngIf="!trips">
+            <ion-card *ngFor="let item of [1,2,3,4,5]" class="card-manager" button=true>
+                <ion-card-header>
+                  <ion-card-subtitle><ion-skeleton-text width="100%"></ion-skeleton-text></ion-card-subtitle>
+                  <ion-card-title><ion-skeleton-text animated width="100%"></ion-skeleton-text></ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-skeleton-text animated width="20%"></ion-skeleton-text>
+                  <ion-skeleton-text animated width="20%"></ion-skeleton-text>
+                  <ion-skeleton-text animated width="80%"></ion-skeleton-text>
+                  <ion-skeleton-text animated width="80%"></ion-skeleton-text>
+                </ion-card-content>
+              </ion-card>
+        </div>
+
+        <div *ngIf="trips">
+            <ion-card *ngFor="let trip of trips" class="card-manager" button=true>
+                <ion-card-header>
+                  <ion-card-subtitle>{{trip.city}}</ion-card-subtitle>
+                  <ion-card-title>{{trip.place}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-label>{{trip.year}}, {{trip.month}}, Rating: {{trip.rating}}</ion-label>
+                  <h3>{{trip.notes}}</h3>
+                </ion-card-content>
+              </ion-card>
+        </div>
+
+        
+          
+
+      </ion-col>
+      <ion-col size="0">
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

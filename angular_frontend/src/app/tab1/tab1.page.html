@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-avatar slot="start">
+            <img src="http://localhost:3000/res/images/escudonegativo.png">
+          </ion-avatar>
+    </ion-buttons>
+    <ion-title>
+      Manager
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-content-tab1">
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center">
+
+        <ion-col size-lg="5" size-xl="5" size-md="5" size-sm="9" size-xs="12">
+
+
+            <ion-card class="welcome-card">
+                <ion-card-header>
+                  <ion-card-subtitle>My Trips Manager Site</ion-card-subtitle>
+                  <ion-card-title>Wellcome Manager</ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                  <p>Wellcome, this is the manager Window, from here you´ll be able to manage the platform,
+                  as manager you´ll be in charge of manage players and help them updating their data,
+                  and also help new users to signup in the platform. Remember, travelers are the priority.</p> 
+                  <b></b>
+                  For now you´ll be capable of using this tab, in the future before releasing the platform,
+                  you´ll be provided with credentials to access the manager profile, so keep updated.
+                  
+                  <ion-list lines = "none">
+                      <ion-list-header>
+                        <ion-label>You´ll be able to:</ion-label>
+                      </ion-list-header>
+                      <ion-item>
+                        <ion-icon slot="start" color="medium" name="person-add"></ion-icon>
+                        <ion-label>Add new travelers</ion-label>
+                      </ion-item>
+                      <ion-item>
+                        <ion-icon slot="start" color="medium" name="create"></ion-icon>
+                        <ion-label>Edit their personal info</ion-label>
+                      </ion-item>
+                      <ion-item>
+                        <ion-icon slot="start" color="medium" name="trash"></ion-icon>
+                        <ion-label>Close/ban their accounts</ion-label>
+                      </ion-item>
+                    </ion-list>
+
+                </ion-card-content>
+              </ion-card>
+  
+        </ion-col>
+
+      <ion-col size-lg="6" size-xl="6" size-md="6" size-sm="9" size-xs="12">
+
+
+          <ion-card class="card-manager" button=true [routerLink]="['travelers']" routerDirection="forward">
+              <ion-card-header>
+                <ion-card-title>Manage existing travelers</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <p>List all, delete them, update them, update their personal info,
+                   all of the info will be save to the DataBase,
+                   but you won´t be capable of reading the user´s trips from here.</p>
+                <!-- Icons -->
+                <ion-button expand="full">
+                  <ion-icon slot="icon-only" name="list"></ion-icon>
+                  <ion-icon slot="icon-only" name="create"></ion-icon>  
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card class="card-manager" button=true [routerLink]="['add-traveler']" routerDirection="forward">
+                <ion-card-header>
+                  <ion-card-title>Add travelers</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p>Here you can add a new traveler to our platform,
+                    we are happy to get new players every day, so do your best.</p>
+                  <!-- Icons -->
+                  <ion-button expand="full">
+                      <ion-icon slot="icon-only" name="person-add"></ion-icon>
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
+
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/tab1">
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+        </ion-back-button>
+      </ion-buttons>
+      <ion-title>Manage trips</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <ion-grid fixed>
+
+        <ion-button expand="block" [routerLink]="['add-game']"  routerDirection="forward">
+            Add game
+          </ion-button>
+
+          <ion-list *ngIf="trips">
+            <ion-item button *ngFor="let trip of trips" [routerLink]="['game-detail', game]" routerDirection="forward">
+              <ion-ripple-effect></ion-ripple-effect>
+        
+              <ion-avatar slot="start">
+                  <ion-icon name="airplane" color="light"></ion-icon>        
+              </ion-avatar>
+        
+              <ion-label>
+                  <h2>{{trip.place}}</h2>
+
+                  <h3>{{trip.city}}</h3>
+        
+                  <ion-label text-wrap><p>{{trip.notes}}</p></ion-label>
+              </ion-label>
+        
+            </ion-item>
+          </ion-list>
+    </ion-grid>
+</ion-content>
