@@ -1,3 +1,4 @@
+import { Traveler } from './../models/travelerInterface';
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../api.service';
 import { Router } from '@angular/router';
@@ -9,9 +10,19 @@ import { Router } from '@angular/router';
 })
 export class AddTravelerPage implements OnInit {
 
+  traveler: Traveler;
+
   constructor(private apiService: APIService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  addTraveler(form){
+    this.traveler = form.value;
+    console.log(this.traveler);
+    //alert("The form was submitted");
+    form.reset();
+    this.apiService.saveTravelerToDB(this.traveler);
   }
 
 

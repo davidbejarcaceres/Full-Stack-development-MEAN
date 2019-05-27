@@ -63,6 +63,30 @@ export class APIService {
   }
 
 
+  saveTravelerToDB(traveler: Traveler){
+    var addTravelerURL = (BASE_URL + TRAVELERS_URL);
+
+    this.http.post(addTravelerURL, traveler, options)
+    .subscribe( 
+          response => {
+                        if (response.status == 201) {
+                          console.log("Traveler Added " + response.status);  
+                          var action = "Traveler Added";
+                          this.presentToast(response.status.toString(), action );                         
+                          console.log(response.json());
+                        } else{
+                          console.log("Traveler not added");
+                          this.presentToast((500).toString(), "Not Added" );                                                   
+                        }                        
+                      },
+         error => {
+                        //alert(error.text());
+                        this.presentToast((500).toString(), "Not Added" );  
+                        console.log(error.text());
+        });
+  }
+
+
   async presentToast(code: string, action: string) {
     const toast = await this.toastController.create({
       message: (code + "  -  " + action),

@@ -11,7 +11,7 @@
 
 <ion-content>
     <ion-grid fixed>
-        <form #Traveler="ngForm" (ngSubmit)="updateTraveler(Traveler.form);">
+        <form #Traveler="ngForm" (ngSubmit)="addTraveler(Traveler.form);">
           <ion-row class="ion-justify-content-center">
             <ion-col size-lg="4" size-xl="4" size-md="5" size-sm="9" size-xs="12">
                     <ion-card class="welcome-card" >
@@ -19,12 +19,12 @@
                         <img src="assets/images/user256x256.png">
                         <ion-card-header>
                           <ion-ripple-effect></ion-ripple-effect>
-                          <ion-card-subtitle>ID: {{traveler._id}}</ion-card-subtitle>
+                          <ion-card-subtitle>Fill the form for the new traveler:</ion-card-subtitle>
                           <ion-card-title>
                             <!-- Inputs with labels -->
                             <ion-item class="form-input">
                               <ion-label position="stacked">Edit firstname</ion-label>
-                              <ion-input  name="firstname" ngModel #firstname="ngModel" placeholder={{traveler.firstname}}></ion-input>
+                              <ion-input  name="firstname" ngModel #firstname="ngModel" placeholder="Travele´s firstname here"></ion-input>
                             </ion-item>
                           </ion-card-title>
                         </ion-card-header>
@@ -32,14 +32,14 @@
                           <!-- Input with placeholder -->
                           <ion-item  class="form-input">
                               <ion-label position="stacked">Edit lastname</ion-label>
-                              <ion-input name="lastname" ngModel #lastname="ngModel" placeholder={{traveler.lastname}}></ion-input>
+                              <ion-input name="lastname" ngModel #lastname="ngModel" placeholder="Travele´s lastname here"></ion-input>
                           </ion-item>
                         </ion-card-content>
                       </ion-card>
             </ion-col>
   
   
-            <ion-col class="ion-justify-content-center" size-lg="4" size-xl="4" size-md="4" size-sm="9" size-xs="12">
+            <ion-col type="submit" class="ion-justify-content-center" size-lg="4" size-xl="4" size-md="4" size-sm="9" size-xs="12">
                   <ion-button  type="submit" expand="block">
                       <ion-ripple-effect></ion-ripple-effect>
                       Add to Database

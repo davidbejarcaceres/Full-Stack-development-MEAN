@@ -34,6 +34,20 @@ body > div.navbar.navbar-default.navbar-fixed-top > div > div > a:nth-child(1) >
   padding: 0px;
 }
 
+button.btn.btn-raised{
+  color: white;
+  margin-right: 2em;
+  font-weight: bold;
+  background-color: #2f6194;
+}
+
+a.btn.btn-raised{
+  color: white;
+  margin-right: 2em;
+  font-weight: bold;
+  background-color: #2f6194;
+}
+
 a {
   color: rgb(0, 22, 31);
 }
