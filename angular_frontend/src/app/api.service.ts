@@ -24,7 +24,6 @@ var options = new RequestOptions({ headers: headers,
   providedIn: 'root'
 })
 export class APIService {
-  
   constructor(private http: Http, private toastController: ToastController) {
    
 
@@ -82,6 +81,39 @@ export class APIService {
          error => {
                         //alert(error.text());
                         this.presentToast((500).toString(), "Not Added" );  
+                        console.log(error.text());
+        });
+  }
+
+
+  updateTraveler(traveler: Traveler) {
+    var urlUpdateTraveler = BASE_URL + TRAVELERS_URL + "/" + traveler._id;
+
+    this.http.put(urlUpdateTraveler, traveler, options)
+    .subscribe( 
+          response => {
+                        console.log("Traveler Updated " + response.status);
+                        var action = "Traveler updated";
+                        this.presentToast(response.status.toString(), action );
+                      },
+         error => {
+                        alert(error.text());
+                        console.log(error.text());
+        });
+  }  
+
+  deleteTraveler(_id: string) {
+    var urlDeleteTraveler = BASE_URL + TRAVELERS_URL + "/" + _id ;
+    console.log(urlDeleteTraveler);
+    this.http.delete(urlDeleteTraveler, _id)
+    .subscribe( 
+          response => {
+                        console.log("Game Deleted " + response.status);
+                        var action = "Game deleted";
+                        this.presentToast(response.status.toString(), action );                                                   
+                      },
+         error => {
+                        alert(error.text());
                         console.log(error.text());
         });
   }

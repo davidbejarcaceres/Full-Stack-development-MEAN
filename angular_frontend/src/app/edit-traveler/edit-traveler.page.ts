@@ -18,15 +18,11 @@ export class EditTravelerPage implements OnInit {
     });
    }
 
-  deleteTraveler(){
-    //this.apiService.deleteGame(this.game._id);    
-  }
-
   updateTraveler(form){
 
-    var newGame = new TravelerClass(this.traveler._id, this.traveler.trips, this.traveler.firstname, this.traveler.lastname) 
+    var newTraveler = new TravelerClass(this.traveler._id, this.traveler.trips, this.traveler.firstname, this.traveler.lastname) 
     console.log("Nuevo Juego como clase editable");
-    console.log(newGame);
+    console.log(newTraveler);
     
     console.log("Datos del formulario: ");
     console.log(form.value);
@@ -37,8 +33,8 @@ export class EditTravelerPage implements OnInit {
       var newName = <string>form.value.firstname;
       if (newName !== this.traveler.firstname && newName.length > 2) {
         console.log("Cambia nombre");
-        newGame.firstname = newName;
-        console.log(newGame.firstname);
+        newTraveler.firstname = newName;
+        console.log(newTraveler.firstname);
       }
     }
 
@@ -46,13 +42,19 @@ export class EditTravelerPage implements OnInit {
       var newLastname = <string>form.value.lastname;
       if (newLastname !== this.traveler.lastname && newLastname.length > 2) {
         console.log("Cambia Apellido");
-        newGame.lastname = newLastname;
-        console.log(newGame.lastname);
+        newTraveler.lastname = newLastname;
+        console.log(newTraveler.lastname);
       }
     }
     //alert(newGame);
     form.reset();
-    //this.apiService.updateGame(newGame);
+    this.apiService.updateTraveler(newTraveler);
+    this.goHome();
+  }
+
+  deleteTraveler(){
+    this.apiService.deleteTraveler(this.traveler._id);  
+    this.goHome(); 
   }
 
   ngOnInit() {
