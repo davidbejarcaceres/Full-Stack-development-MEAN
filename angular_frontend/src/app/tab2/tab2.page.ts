@@ -4,6 +4,7 @@ import { APIService } from '../api.service';
 import { delay } from 'q';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'app-tab2',
@@ -15,7 +16,11 @@ export class Tab2Page {
   trips: Trip[];
   idTraveler: string;
   url : string = "http://www.google.com/search?q=";
+  urlImages: [];
+  urlimagesNames: [];
 
+  lista: string[] = [
+  ];
 
   constructor(private apiService: APIService, private _ngZone: NgZone, private router: Router, private navControler: NavController) {
     // TODO: Remplace with the ID of the player from the DB, for production would be needed to have login screen
@@ -39,7 +44,7 @@ export class Tab2Page {
    }
 
   getTrips(){
-    var trips = this.apiService.getTrips().subscribe(async data => {
+    this.apiService.getTrips().subscribe(async data => {
       await delay(1500);
       console.log(<Trip[]>data);
       this.trips = <Trip[]>data;
@@ -63,13 +68,51 @@ export class Tab2Page {
     this.navControler.navigateForward(["tabs/tab2/add-trip", { id: this.idTraveler}]);
   }
 
+  getImagesUrls(){
+    this.apiService.getTravelersImagesList(this.idTraveler).subscribe(async data => {
+      await delay(1500);
+      this.urlImages = data;
+      console.log(this.urlImages);
+      this.urlImages.forEach(url => {
+        console.log(url);              
+      });
+      var url = `http://localhost:3000/api/travelers/${this.idTraveler}/images/names`;
+    })
+  }
+
+  getImagesNames(){
+    this.apiService.getTravelersImagesNames(this.idTraveler).subscribe(async data => {
+      await delay(1500);
+      this.urlimagesNames = data;
+      console.log(this.urlimagesNames);
+      this.urlimagesNames.forEach(name => {
+        var url = (`http://localhost:3000/api/travelers/${this.idTraveler}/images/${name}`);
+        this.lista.push(url);        
+      });
+    })
+  }
+
+  getResources(){
+    this.apiService.getTravelersImagesResources(this.idTraveler).subscribe(async recursos => {
+      var recursosLista = recursos;
+      console.log(recursos);      
+      console.log("PRINTING LIST OF RESOURCES:");
+      console.log(recursosLista);
+      recursosLista.forEach(recurso => {
+        console.log(recurso);
+      });
+    })
+  }
+
+
 ngOnInit(): void {
-  
+  this.getImagesNames();
+  this.getResources();
 }
 
 ionViewWillEnter() {
   this.getTripsFromTraveler()
-  //this.getTrips();
+  //this.getImagesUrls();
 }
 
 }

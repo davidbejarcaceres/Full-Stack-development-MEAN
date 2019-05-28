@@ -31,7 +31,11 @@ router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
 
 
 /* UPLOAD IMAGES end-points */
-router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage);
+router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage); // Traveler add images to the trip
+router.get('/travelers/:id?/images/url', ctrlMyTrips.getImagesURLs);
+router.get('/travelers/:id?/images/names', ctrlMyTrips.getImagesNames);
+router.get('/travelers/:id?/images/:nameImage?', ctrlMyTrips.getImageFileFromTraveler);
+
 
 
 

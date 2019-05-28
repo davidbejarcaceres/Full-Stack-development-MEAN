@@ -1,3 +1,4 @@
+import { Http } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { Trip } from '../models/tripInterface';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,9 @@ export class AddTripPage implements OnInit {
   url : string = "http://www.google.com/search?q=";
   playerName: string;
 
-  constructor(public activatedRoute: ActivatedRoute, private apiService: APIService, private router: Router) {
+  selectedFile: File
+
+  constructor(public activatedRoute: ActivatedRoute, private apiService: APIService, private router: Router, private http: Http) {
     this.activatedRoute.params.subscribe(param => {
       this.idTraveler = param.id;      
     });
@@ -31,6 +34,35 @@ export class AddTripPage implements OnInit {
     form.reset();
     this.apiService.saveTripToDB(formValues, this.idTraveler);
     //this.goHome();
+    
+  }
+
+  postImage(image){
+    console.log(image);
+
+    console.log("VALUE:");
+    console.log(image.value);
+    var imagen = <File>image.value;
+    console.log(imagen);
+    
+  }
+
+  onFileChanged(event) {
+    console.log("CAHNGES FILE:");
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    
+  }
+
+  onUpload(){
+    console.log("uploading");
+    
+  }
+
+  postFoto(form){
+    console.log(form);
+    console.log(form.value);
+    
     
   }
 

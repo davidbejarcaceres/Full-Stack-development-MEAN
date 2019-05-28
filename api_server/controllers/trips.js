@@ -10,6 +10,7 @@ var travelersUploads = pathPublicServer +'images/tripsImages';
 const path = require('path');
 
 
+
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);    
@@ -37,7 +38,8 @@ var storage = multer.diskStorage({
         const tripID = (req.params.idTrip) ? req.params.id : "tripID";
         callback(null, tripID +  '-' + Date.now() + path.extname(file.originalname))
     }
-  })
+  });
+
    
 
 // GET ALL TRIPS: api/trips
@@ -149,12 +151,14 @@ module.exports.tripDeleteByID = function (req, res) {
 
 // PUT UPDATES TRIP: /api/trips/:id?
 module.exports.tripUpdateByID = function (req, res) {
+    var idTrip = req.params.id;
+    console.log(idTrip);
     dbTrips.findById(req.params.id).exec(function (err, tripOld){
         if (err) {
             return res.status(404).send({message: "Bad request"});
         } else {
             // Checks if no values are passed
-            tripOld.travelers =  ((req.body.travelers) ? tripOld.travelers.push(req.body.travelers) : tripOld.travelers)
+            //tripOld.travelers =  ((req.body.travelers) ? tripOld.travelers.push(req.body.travelers) : tripOld.travelers)
             tripOld.country =  ((req.body.country) ? req.body.country : tripOld.country)
             tripOld.city = ((req.body.city) ? req.body.city : tripOld.city)
             tripOld.place = ((req.body.place) ? req.body.place : tripOld.place)
@@ -189,3 +193,87 @@ module.exports.uploadImage = function (req, res) {
         res.end('File has uploaded')
     })
 }
+
+
+// GET List of images of the player
+module.exports.getImagesURLs = function (req, res, next) {
+    var list= [];
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if(traveler == null) return res.status(404).send(`ERROR: No element with ID: ${req.params.id}`);
+            
+            const travelerID = (req.params.id) ? req.params.id : null;
+            const tripID = (req.params.idTrip) ? req.params.id : null;
+            var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
+
+            if (!folderexsits) return res.status(404).send(list);
+
+            folderImages = travelersUploads + "/" + travelerID;
+            console.log(folderImages);
+
+            fs.readdir(folderImages, { withFileTypes: true },  (err, images) => {
+                images.forEach(imageName => {
+                    pathImage = folderImages + "/" + imageName.name;
+                    list.push(pathImage);
+                });
+                res.status(200).send(list)
+              });
+        }
+
+    })
+};
+
+// GET List of images of the player
+module.exports.getImagesNames = function (req, res, next) {
+    var listNames= [];
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if(traveler == null) return res.status(404).send(`ERROR: No element with ID: ${req.params.id}`);
+            
+            const travelerID = (req.params.id) ? req.params.id : null;
+            const tripID = (req.params.idTrip) ? req.params.id : null;
+            var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
+
+            if (!folderexsits) return res.status(404).send(listNames);
+
+            folderImages = travelersUploads + "/" + travelerID;
+            console.log(folderImages);
+
+            fs.readdir(folderImages, { withFileTypes: true },  (err, images) => {
+                images.forEach(imageName => {
+                    listNames.push(imageName.name);
+                });
+                res.status(200).send(listNames)
+              });
+        }
+    })
+};
+
+
+// GET List of images of the player
+module.exports.getImageFileFromTraveler = function (req, res, next) {
+    var list= [];
+    var imageName= req.params.nameImage;
+    dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
+        if (err) {
+            return res.status(404).send({message: "Bad request"});
+        } else {
+            if(traveler == null) return res.status(404).send(`ERROR: No element with ID: ${req.params.id}`);
+            
+            const travelerID = (req.params.id) ? req.params.id : null;
+            const tripID = (req.params.idTrip) ? req.params.id : null;
+            var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
+
+            if (!folderexsits) return res.status(404).send(list);
+
+            folderImages = travelersUploads + "/" + travelerID + "/";
+            console.log(folderImages);
+            /* GET Logo. */
+            res.sendFile( folderImages + imageName);
+        }
+    })
+};

@@ -69,7 +69,7 @@
               </ion-col>
     
     
-              <ion-col class="ion-justify-content-center" size-lg="3" size-xl="3" size-md="3" size-sm="9" size-xs="12">
+              <ion-col class="ion-justify-content-center" size-lg="3" size-xl="3" size-md="3" size-sm="9" size-xs="12">                              
 
                     <ion-button  type="submit" expand="block">
                         <ion-ripple-effect></ion-ripple-effect>
@@ -79,6 +79,29 @@
             
           </ion-row>
         </form>
+
+        <form #Image="ngForm" (ngSubmit)="postImage(Image.form);">
+            <input type="file" name="file" #file ngModel #file="ngModel">
+            <ion-button  type="submit" expand="block">
+                <ion-ripple-effect></ion-ripple-effect>
+                Upload Image
+            </ion-button>
+
+        </form>
+
+        <label> SEGUNDA OPCION </label>
+
+        <form #Foto="ngForm" (ngSubmit)="postFoto(Foto.form);">
+          
+      <input
+        style="display: none"
+        type="file" (change)="onFileChanged($event)"
+        #fileInput>
+      <ion-button (click)="fileInput.click()">Select File</ion-button>
+      <ion-button (click)="onUpload()">Upload!</ion-button>
+
+        </form>
+        
       </ion-grid>
   </ion-content>
 

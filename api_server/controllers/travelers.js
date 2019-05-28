@@ -3,7 +3,12 @@ var trips = require("../models/trip");
 var mongoose = require("mongoose");
 var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
+const fs = require('fs');
+const path = require('path');
+
+
 const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
+var travelersUploads = pathPublicServer +'images/tripsImages';
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -63,7 +68,8 @@ module.exports.travelerAddsTrip = function(req, res, next) {
 };
 
 // Traveler UPDATES a trip from his list of trips
-module.exports.travelerUpdatesTrip = function(req, res, next) {    
+module.exports.travelerUpdatesTrip = function(req, res, next) {
+    var idTraveler = req.params.id;
     dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
         if (err) {
             return res.status(404).send({message: "Bad request"});
@@ -165,6 +171,8 @@ module.exports.travelerTrips = function (req, res, next) {
         }
     })
 };
+
+
 
 module.exports.travelerUpdateByID = function (req, res) {
     dbTraveler.findById(req.params.id).exec(function (err, travelerOld){

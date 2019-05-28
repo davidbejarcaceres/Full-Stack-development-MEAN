@@ -6,6 +6,7 @@ import { map, retry, timeInterval, timeout, delay, take, retryWhen } from 'rxjs/
 import { ToastController } from '@ionic/angular';
 import { Traveler } from './models/travelerInterface';
 import { TripClass } from './models/TripClass';
+import { Url } from 'url';
 
 /**
  * @author David Bejar Caceres
@@ -44,7 +45,7 @@ export class APIService {
       console.log("HTTP Code: " + res.status);
       var action = "Got Trips From Server";
       var trips =  <Trip[]>res.json();
-      this.presentToast(res.status.toString(), action);
+      //this.presentToast(res.status.toString(), action);
       return trips;
     }));
   }
@@ -56,7 +57,7 @@ export class APIService {
       console.log("HTTP Code: " + res.status);
       var action = "Got Trips From Server";
       var trips =  <Trip[]>res.json();
-      this.presentToast(res.status.toString(), action);
+      //this.presentToast(res.status.toString(), action);
       return trips;
     }));
   }
@@ -72,6 +73,41 @@ export class APIService {
       return trips;
     }));
   }
+
+  public getTravelersImagesList(idTraveler: string): Observable<[]>{
+      var url = `http://localhost:3000/api/travelers/${idTraveler}/images/url`
+      return this.http.get(url, options).pipe(map((res: Response) => {
+      var action = "Got Travelers From Server";
+      var urlURLs =  <[]>res.json();
+      this.presentToast(res.status.toString(), action);
+      return urlURLs;
+    }));
+  }
+
+  public getTravelersImagesNames(idTraveler: string): Observable<[]>{
+    var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/names`);
+    console.log("GETTING IMAGES NAMES WITH PATH:");
+    console.log(url);
+    return this.http.get(url, options).pipe(map((res: Response) => {
+    var action = "Got Images From Server";
+    var imagesNames =  <[]>res.json();
+    this.presentToast(res.status.toString(), action);
+    return imagesNames;
+  }));
+}
+
+public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
+  var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/names`);
+  return this.http.get(url, options).pipe(map((res: Response) => {
+  var respuesta =  <[]>res.json();
+  var Imagesresoruces: string[];
+  respuesta.forEach(name => {
+    var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/${name}`);
+    Imagesresoruces.push(url);        
+  });
+  return Imagesresoruces;
+}));
+}
 
 
   saveTravelerToDB(traveler: Traveler){
@@ -115,7 +151,6 @@ export class APIService {
                         }                        
                       },
          error => {
-                        //alert(error.text());
                         this.presentToast((500).toString(), "Not Added" );  
                         console.log(error.text());
         });
@@ -124,7 +159,8 @@ export class APIService {
 
   updateTraveler(traveler: Traveler) {
     var urlUpdateTraveler = BASE_URL + TRAVELERS_URL + "/" + traveler._id;
-
+    console.log(urlUpdateTraveler);
+    
     this.http.put(urlUpdateTraveler, traveler, options)
     .subscribe( 
           response => {
@@ -140,7 +176,8 @@ export class APIService {
 
   updateTrip(trip: TripClass) {
     var urlUpdateTrip = BASE_URL + TRIPS_URL + "/" + trip.id;
-
+    var url = `http://localhost:3000/api//travelers/5ce96fa9cc91d93b884385b9/trips/5ced394ef03be409a83d56e4`
+    console.log(urlUpdateTrip);
     this.http.put(urlUpdateTrip, trip, options)
     .subscribe( 
           response => {
@@ -149,7 +186,24 @@ export class APIService {
                         this.presentToast(response.status.toString(), action );
                       },
          error => {
-                        alert(error.text());
+                        this.presentToast((500).toString(), "Not Added" );  
+                        console.log(error.text());
+        });
+  }
+
+  updateTripByTraveler(trip: TripClass, idTraveler: string) {
+    var url = `http://localhost:3000/api/travelers/${idTraveler}/trips/${trip.id}`
+    console.log(url);
+    this.http.put(url, trip, options)
+    .subscribe( 
+          response => {
+                        console.log("Trip Updated " + response.status);
+                        var action = "Trip updated";
+                        this.presentToast(response.status.toString(), action );
+                      },
+         error => {
+                        
+                        this.presentToast((500).toString(), "Not Added" );  
                         console.log(error.text());
         });
   }
@@ -167,7 +221,7 @@ export class APIService {
                         this.presentToast(response.status.toString(), action );                                                   
                       },
          error => {
-                        alert(error.text());
+                        this.presentToast((500).toString(), "Not Added" );  
                         console.log(error.text());
         });
   }
@@ -186,7 +240,8 @@ export class APIService {
                         this.presentToast(response.status.toString(), action );                                                   
                       },
          error => {
-                        alert(error.text());
+                        
+                        this.presentToast((500).toString(), "Not Added" );  
                         console.log(error.text());
         });
   }
