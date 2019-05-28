@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    // PHOTO
+    form(action='http://localhost:3000/api/trips/5ce96fa9cc91d93b884385b9/images/5ce96fa9cc91d93b884385ba', enctype='multipart/form-data', method='POST')
+        input(type='file', name='userFile', accept='image/*')
+        input(type='submit', value='Upload Photo')

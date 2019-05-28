@@ -18,7 +18,7 @@
       <ion-col size-lg="6" size-xl="6" size-md="6" size-sm="9" size-xs="12">
         
         <div *ngIf="!trips">
-            <ion-card *ngFor="let item of [1,2,3,4,5]" class="card-manager" button=true>
+            <ion-card *ngFor="let item of [1,2,3,4,5]" class="welcome-card" button=true>
                 <ion-card-header>
                   <ion-card-subtitle><ion-skeleton-text width="100%"></ion-skeleton-text></ion-card-subtitle>
                   <ion-card-title><ion-skeleton-text animated width="100%"></ion-skeleton-text></ion-card-title>
@@ -33,7 +33,7 @@
         </div>
 
         <div *ngIf="trips">
-            <ion-card *ngFor="let trip of trips" class="card-manager" button=true>
+            <ion-card *ngFor="let trip of trips" class="welcome-card" button=true>
                 <ion-card-header>
                   <ion-card-subtitle>{{trip.city}}</ion-card-subtitle>
                   <ion-card-title>{{trip.place}}</ion-card-title>

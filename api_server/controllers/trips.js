@@ -3,11 +3,42 @@ var trips = require("../models/trip");
 var mongoose = require("mongoose");
 var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
+var multer = require("multer");
+const fs = require('fs');
+const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
+var travelersUploads = pathPublicServer +'images/tripsImages';
+const path = require('path');
+
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);    
 };
+
+// SET STORAGE
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const travelerID = (req.params.id) ? req.params.id : "userID";
+        const tripID = (req.params.idTrip) ? req.params.id : "tripID";
+        var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
+        if (folderexsits) {
+            console.log("Folder exists");
+            folderUpload = travelersUploads + "/" + travelerID;
+        } else{
+            console.log("NO FOLDER FOR THAT USER!");
+            fs.mkdirSync(travelersUploads + "/" + travelerID);
+            folderUpload = travelersUploads + "/" + travelerID;
+        }
+      cb(null, folderUpload)
+    },
+    filename: function(req, file, callback) {
+        console.log(file)
+        const travelerID = (req.params.id) ? req.params.id : "userID";
+        const tripID = (req.params.idTrip) ? req.params.id : "tripID";
+        callback(null, tripID +  '-' + Date.now() + path.extname(file.originalname))
+    }
+  })
+   
 
 // GET ALL TRIPS: api/trips
 module.exports.tripList = function(req, res, next) {    
@@ -138,4 +169,23 @@ module.exports.tripUpdateByID = function (req, res) {
             });            
         }
     })    
+}
+
+// Uploads an image to the server and links to the traveler and the trip
+module.exports.uploadImage = function (req, res) {
+    const travelerID = (req.params.id) ? req.params.id : "userID";
+    console.log(req.body);
+    let upload = multer({
+        storage: storage,
+        fileFilter: function(req, file, callback) {
+            let ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(res.end('Only images are allowed'), null)
+            }
+            callback(null, true)
+        }
+    }).single('userFile');
+    upload(req, res, function(err) {
+        res.end('File has uploaded')
+    })
 }

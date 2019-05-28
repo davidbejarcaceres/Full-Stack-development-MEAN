@@ -53,9 +53,9 @@ module.exports.travelerAddsTrip = function(req, res, next) {
                     if (err) return res.status(404).send({message: "Bad request"});
                     // Adds the trip to the traveler list of trips
                     traveler.trips.push(trip.id);
-                    dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips} , function(err, updatedElement) {
+                    dbTraveler.findByIdAndUpdate(traveler.id, {trips: traveler.trips}, {new: true} , function(err, updatedElement) {
                         if (err) return res.status(404).send({message: "Bad request"});
-                        return res.status(200).send("Trip Added!");
+                        return res.status(201).send("Trip Added!");
                     });                  
               });
         }

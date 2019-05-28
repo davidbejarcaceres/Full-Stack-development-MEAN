@@ -7,6 +7,8 @@ const routes: Routes = [
   { path: 'trips', loadChildren: './trips/trips.module#TripsPageModule' },
   { path: 'tabs/tab1/travelers/edit-traveler', loadChildren: './edit-traveler/edit-traveler.module#EditTravelerPageModule' },
   { path: 'tabs/tab1/add-traveler', loadChildren: './add-traveler/add-traveler.module#AddTravelerPageModule' },
+  { path: 'tabs/tab2/edit-trip', loadChildren: './edit-trip/edit-trip.module#EditTripPageModule' },
+  { path: 'tabs/tab2/add-trip', loadChildren: './add-trip/add-trip.module#AddTripPageModule' },
 ];
 
 

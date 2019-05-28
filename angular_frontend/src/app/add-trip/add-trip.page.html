@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tabs/tab2">
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+        </ion-back-button>
+      </ion-buttons>
+      <ion-title>Add your new trip</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+      <ion-grid fixed>
+          <form #Trip="ngForm" (ngSubmit)="addTrip(Trip.form);">
+            <ion-row class="ion-justify-content-center">
+              <ion-col size-lg="6" size-xl="6" size-md="5" size-sm="9" size-xs="12">
+                      <ion-card class="welcome-card" >
+                          <ion-ripple-effect></ion-ripple-effect>
+                          <!-- <img src="assets/images/user256x256.png"> -->
+                          <ion-card-header>
+                            <ion-ripple-effect></ion-ripple-effect>
+                            <ion-card-subtitle></ion-card-subtitle>
+                            <ion-card-title>
+                              <!-- Inputs with labels -->
+                              <ion-item class="form-input">
+                                <ion-label position="stacked">Add country</ion-label>
+                                <ion-input  name="country" ngModel #country="ngModel" placeholder=""></ion-input>
+                              </ion-item>
+                            </ion-card-title>
+                          </ion-card-header>
+                          <ion-card-content>
+                            <!-- Input with placeholder -->
+                            <ion-item  class="form-input">
+                                <ion-label position="stacked">Add city</ion-label>
+                                <ion-input name="city" ngModel #lastname="ngModel" placeholder="Fill the city"></ion-input>
+                            </ion-item>
+
+                            <ion-item  class="form-input">
+                                <ion-label position="stacked">Add place</ion-label>
+                                <ion-input name="place" required="true" ngModel #place="ngModel" placeholder="" required></ion-input>
+                            </ion-item>
+
+                            <ion-item  class="form-input">
+                                <ion-label position="stacked">Add year</ion-label>
+                                <ion-input name="year" type="number" inputmode="numeric" min="0" max="2100" ngModel #year="ngModel" placeholder=""></ion-input>
+                            </ion-item>
+
+
+                            <ion-item  class="form-input">
+                                <ion-label position="stacked">Add month</ion-label>
+                                <ion-input name="month" ngModel #month="ngModel" placeholder=""></ion-input>
+                            </ion-item>
+
+                            <ion-item class="form-input">
+                                <ion-label position="floating">Rating</ion-label>
+                                <ion-input name="rating" type="number" inputmode="numeric" min="0" max="10" class="form-control" ngModel #rating="ngModel" placeholder="Describe your experience"></ion-input>
+                            </ion-item>
+
+
+                            <ion-label position="floating">Edit notes binding:</ion-label>
+                            <ion-item  class="form-input">
+                                <textarea name="notes" #notes ngModel #notes="ngModel" id="1" rows="10"></textarea>
+                            </ion-item>
+
+                            
+
+                          </ion-card-content>
+                        </ion-card>
+              </ion-col>
+    
+    
+              <ion-col class="ion-justify-content-center" size-lg="3" size-xl="3" size-md="3" size-sm="9" size-xs="12">
+
+                    <ion-button  type="submit" expand="block">
+                        <ion-ripple-effect></ion-ripple-effect>
+                        Save trip
+                      </ion-button>
+              </ion-col>
+            
+          </ion-row>
+        </form>
+      </ion-grid>
+  </ion-content>
+
+
+
+
+
+<ion-footer class="footer-dbc770">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+          <img button (click)="goHome()" routerDirection="root" width="100px" src="http://localhost:3000/res/images/contratipoHorizontal.png">
+        </ion-buttons>
+      <ion-title>Developed by: David Béjar Cáceres 2019</ion-title>
+    </ion-toolbar>
+  </ion-footer>

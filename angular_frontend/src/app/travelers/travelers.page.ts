@@ -35,7 +35,11 @@ export class TravelersPage implements OnInit {
   }
 
 ngOnInit(): void {
+}
+
+ionViewWillEnter() {
   this.getTravelers();
 }
+
 
 }

@@ -21,7 +21,7 @@ export class EditTravelerPage implements OnInit {
   updateTraveler(form){
 
     var newTraveler = new TravelerClass(this.traveler._id, this.traveler.trips, this.traveler.firstname, this.traveler.lastname) 
-    console.log("Nuevo Juego como clase editable");
+    console.log("Nuew Player as editable class");
     console.log(newTraveler);
     
     console.log("Datos del formulario: ");
@@ -82,8 +82,5 @@ class TravelerClass {
     this.lastname = Lastname;
     
   }
-
-
-
 
 }

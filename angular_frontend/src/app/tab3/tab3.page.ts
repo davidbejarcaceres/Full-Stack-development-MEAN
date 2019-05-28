@@ -13,20 +13,21 @@ export class Tab3Page {
   trips: Trip[];
 
 
-  constructor(private apiService: APIService) {
-
-   }
+  constructor(private apiService: APIService) {}
 
   getTrips(){
     var trips = this.apiService.getTrips().subscribe(async data => {
       await delay(2000);
-
       console.log(<Trip[]>data);
       this.trips = <Trip[]>data;
     })
   }
 
 ngOnInit(): void {
+  this.getTrips();
+}
+
+ionViewWillEnter() {
   this.getTrips();
 }
 

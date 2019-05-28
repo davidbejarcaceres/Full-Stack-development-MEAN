@@ -24,9 +24,16 @@ router.get('/travelers/:id?', ctrlTravelers.travelerById);
 router.get('/travelers/all/:query?', ctrlTravelers.findInDB);
 router.post('/travelers', ctrlTravelers.travelerCreate);
 router.post('/travelers/:id?/trips', ctrlTravelers.travelerAddsTrip); // Traveler adds a new trip to his list of trips
-router.delete('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerDeletesTrip); // Traveler adds a new trip to his list of trips
+router.delete('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerDeletesTrip); // Traveler deletes trip from his list of trips
 router.put('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerUpdatesTrip); // Traveler Updates a trip
 router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
 router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
+
+
+/* UPLOAD IMAGES end-points */
+router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage);
+
+
+
 
 module.exports = router;

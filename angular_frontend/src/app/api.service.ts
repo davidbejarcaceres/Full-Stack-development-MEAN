@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, retry, timeInterval, timeout, delay, take, retryWhen } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { Traveler } from './models/travelerInterface';
+import { TripClass } from './models/TripClass';
 
 /**
  * @author David Bejar Caceres
@@ -38,8 +39,19 @@ export class APIService {
 
 
   public getTrips(): Observable<Trip[]>{
-    console.log("Pidiendo trips");
     var url = BASE_URL + TRIPS_URL;
+      return this.http.get(url, options).pipe(map((res: Response) => {
+      console.log("HTTP Code: " + res.status);
+      var action = "Got Trips From Server";
+      var trips =  <Trip[]>res.json();
+      this.presentToast(res.status.toString(), action);
+      return trips;
+    }));
+  }
+
+  public getTripsFromTraveler(idTraveler: string): Observable<Trip[]>{
+    var url = (`http://localhost:3000/api/travelers/${idTraveler}/trips`);
+    
       return this.http.get(url, options).pipe(map((res: Response) => {
       console.log("HTTP Code: " + res.status);
       var action = "Got Trips From Server";
@@ -86,6 +98,30 @@ export class APIService {
   }
 
 
+  saveTripToDB(trip: TripClass, idTraveler: string){
+    var urlTravelerAddsTrip = (BASE_URL + TRAVELERS_URL + "/" + idTraveler + "/trips");
+
+    this.http.post(urlTravelerAddsTrip, trip, options)
+    .subscribe( 
+          response => {
+                        if (response.status == 201) {
+                          console.log("Tripp added to traveler´s log" + response.status);  
+                          var action = "Trip Added";
+                          this.presentToast(response.status.toString(), action );                         
+                          console.log(response.json());
+                        } else{
+                          console.log("Trip not added");
+                          this.presentToast((response.status).toString(), "Not Added" );                                                   
+                        }                        
+                      },
+         error => {
+                        //alert(error.text());
+                        this.presentToast((500).toString(), "Not Added" );  
+                        console.log(error.text());
+        });
+  }
+
+
   updateTraveler(traveler: Traveler) {
     var urlUpdateTraveler = BASE_URL + TRAVELERS_URL + "/" + traveler._id;
 
@@ -100,7 +136,25 @@ export class APIService {
                         alert(error.text());
                         console.log(error.text());
         });
-  }  
+  }
+
+  updateTrip(trip: TripClass) {
+    var urlUpdateTrip = BASE_URL + TRIPS_URL + "/" + trip.id;
+
+    this.http.put(urlUpdateTrip, trip, options)
+    .subscribe( 
+          response => {
+                        console.log("Trip Updated " + response.status);
+                        var action = "Trip updated";
+                        this.presentToast(response.status.toString(), action );
+                      },
+         error => {
+                        alert(error.text());
+                        console.log(error.text());
+        });
+  }
+  
+  
 
   deleteTraveler(_id: string) {
     var urlDeleteTraveler = BASE_URL + TRAVELERS_URL + "/" + _id ;
@@ -110,6 +164,25 @@ export class APIService {
           response => {
                         console.log("Game Deleted " + response.status);
                         var action = "Game deleted";
+                        this.presentToast(response.status.toString(), action );                                                   
+                      },
+         error => {
+                        alert(error.text());
+                        console.log(error.text());
+        });
+  }
+
+
+  deleteTrip( idTraveler: string ,_idTrip: string) {
+    var url = (`http://localhost:3000/api/travelers/${idTraveler}/trips/${_idTrip}`);
+
+    console.log(url);
+    
+    this.http.delete(url, options)
+    .subscribe( 
+          response => {
+                        console.log("Trip Deleted " + response.status);
+                        var action = "Trip deleted";
                         this.presentToast(response.status.toString(), action );                                                   
                       },
          error => {
