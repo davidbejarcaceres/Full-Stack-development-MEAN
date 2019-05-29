@@ -30,7 +30,7 @@ router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
 router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
 
 
-/* UPLOAD IMAGES end-points */
+/* UPLOAD IMAGES end-points, Images stored in ../public/images */
 router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage); // Traveler add images to the trip
 router.post('/trips/:id?/images', ctrlMyTrips.uploadImageBulk); // Traveler add images with no trip
 router.post('/images', ctrlMyTrips.uploadImageBucket); // Traveler add images to the trip

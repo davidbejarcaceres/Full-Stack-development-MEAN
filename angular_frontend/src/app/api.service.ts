@@ -9,7 +9,7 @@ import { TripClass } from './models/TripClass';
 import { Url } from 'url';
 
 /**
- * @author David Bejar Caceres
+ * @author David Béjar Cáceres
  * 2019 dbc770@inlumine.ual.es
  */
 

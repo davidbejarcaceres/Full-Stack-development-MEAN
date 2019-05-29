@@ -22,7 +22,7 @@ export class TravelersPage implements OnInit {
   getTravelers(){
     var trips = this.apiService.getTravelers().subscribe(async data => {
 
-      await delay(2000);
+      await delay(1500); // Just to show off the loading animation, in local not needed, but for production maybe
 
       console.log(<Traveler[]>data);
       this.travelers = <Traveler[]>data;

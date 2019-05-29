@@ -21,7 +21,7 @@ export class TripsPage implements OnInit {
 
   getTrips(){
     var trips = this.apiService.getTrips().subscribe(async data => {
-      await delay(2000);
+      await delay(1500);
 
       console.log(<Trip[]>data);
       this.trips = <Trip[]>data;

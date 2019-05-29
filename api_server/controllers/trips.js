@@ -262,7 +262,7 @@ module.exports.travelerUploadsImage = function (req, res) {
 }
 
 
-// GET List of images of the player
+// GET List of images of the traveler
 module.exports.getImagesURLs = function (req, res, next) {
     var list= [];
     dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
@@ -292,7 +292,7 @@ module.exports.getImagesURLs = function (req, res, next) {
     })
 };
 
-// GET List of images of the player
+// GET List of images of the traveler
 module.exports.getImagesNames = function (req, res, next) {
     var listNames= [];
     dbTraveler.findById(req.params.id).populate('trips').exec(function (err, traveler){
@@ -321,7 +321,7 @@ module.exports.getImagesNames = function (req, res, next) {
 };
 
 
-// GET List of images of the player
+// GET List of images of the traveler
 module.exports.getImageFileFromTraveler = function (req, res, next) {
     var list= [];
     var imageName= req.params.nameImage;
