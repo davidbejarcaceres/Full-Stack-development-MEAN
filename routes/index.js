@@ -5,9 +5,6 @@ const path = require('path');
 
 const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
 
-
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'My Trips' });

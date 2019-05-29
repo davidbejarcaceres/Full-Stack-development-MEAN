@@ -222,10 +222,9 @@ module.exports.uploadImage = function (req, res) {
 }
 
 
-// Travelers add image to his bulkfolder no trip lonked to the image
+// Travelers add image to his bulkfolder no trip linked to the image
 module.exports.uploadImageBulk = function (req, res) {
     if (!req.params.id) return res.status(404).send({message: "No traveler with that id"});
-
     console.log(req.body);
     let upload = multer({
         storage: storage,
@@ -369,8 +368,6 @@ module.exports.uploadImageBucket = function (req, res) {
 module.exports.deletesImage = function (req, res) {
     if(!req.body.img) res.send("No image found").status(404)
     var  pathImage = (req.body.img).toString();
-
-
     var deleteUpToChar = 0;
     for (let index = 0; index < pathImage.length; index++) {
        console.log(pathImage[index]);
@@ -382,21 +379,16 @@ module.exports.deletesImage = function (req, res) {
     var startPath = "C:/Users/Public/node/meanFinal/public/images/tripsImages"
 
     fromDir(startPath, fileNAME, res);
-
 }
 
 
 
-
+// Recursive method to search files in directory
 function fromDir(startPath,filter, res){
-
-    //console.log('Starting from dir '+startPath+'/');
-
     if (!fs.existsSync(startPath)){
         console.log("no dir ",startPath);
         return;
     }
-
     var files= fs.readdirSync(startPath);
     for(var i=0;i<files.length;i++){
         var filename=path.join(startPath,files[i]);

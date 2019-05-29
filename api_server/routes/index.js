@@ -15,6 +15,15 @@ router.post('/tripTraveler', ctrlMyTrips.tripCreateTripTraveler); // Sepcial met
 router.put('/trips/:id?', ctrlMyTrips.tripUpdateByID);
 router.delete('/trips/:id?', ctrlMyTrips.tripDeleteByID);
 
+/* UPLOAD IMAGES end-points, Images stored in ../public/images */
+router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage); // Traveler add images to the trip
+router.post('/trips/:id?/images', ctrlMyTrips.uploadImageBulk); // Traveler add images with no trip
+router.post('/images', ctrlMyTrips.uploadImageBucket); // Anyone add images to the trip
+router.put('/images', ctrlMyTrips.deletesImage); // Traveler add images to the trip
+router.get('/travelers/:id?/images/url', ctrlMyTrips.getImagesURLs);
+router.get('/travelers/:id?/images/names', ctrlMyTrips.getImagesNames);
+router.get('/travelers/:id?/images/:nameImage?', ctrlMyTrips.getImageFileFromTraveler);
+
 /* TRAVELERS end-points */
 router.get('/travelers', ctrlTravelers.travelersList);
 router.get('/travelers/:id?/trips', ctrlTravelers.travelerTrips);
@@ -28,19 +37,5 @@ router.delete('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerDeletesTri
 router.put('/travelers/:id?/trips/:idTrip?', ctrlTravelers.travelerUpdatesTrip); // Traveler Updates a trip
 router.put('/travelers/:id?', ctrlTravelers.travelerUpdateByID);
 router.delete('/travelers/:id?', ctrlTravelers.travelerDeleteByID);
-
-
-/* UPLOAD IMAGES end-points, Images stored in ../public/images */
-router.post('/trips/:id?/images/:idTrip?', ctrlMyTrips.uploadImage); // Traveler add images to the trip
-router.post('/trips/:id?/images', ctrlMyTrips.uploadImageBulk); // Traveler add images with no trip
-router.post('/images', ctrlMyTrips.uploadImageBucket); // Traveler add images to the trip
-router.put('/images', ctrlMyTrips.deletesImage); // Traveler add images to the trip
-router.get('/travelers/:id?/images/url', ctrlMyTrips.getImagesURLs);
-router.get('/travelers/:id?/images/names', ctrlMyTrips.getImagesNames);
-router.get('/travelers/:id?/images/:nameImage?', ctrlMyTrips.getImageFileFromTraveler);
-
-
-
-
 
 module.exports = router;
