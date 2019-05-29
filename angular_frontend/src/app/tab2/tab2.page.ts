@@ -5,6 +5,7 @@ import { delay } from 'q';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+import { Traveler } from '../models/travelerInterface';
 
 @Component({
   selector: 'app-tab2',
@@ -18,13 +19,23 @@ export class Tab2Page {
   url : string = "http://www.google.com/search?q=";
   urlImages: [];
   urlimagesNames: [];
+  traveler: Traveler;
 
   lista: string[] = [
   ];
 
   constructor(private apiService: APIService, private _ngZone: NgZone, private router: Router, private navControler: NavController) {
-    // TODO: Remplace with the ID of the player from the DB, for production would be needed to have login screen
+    // TODO: By default is taking the first traveler from th DB, in production you would want to add login for each user
     this.idTraveler = "5ce96fa9cc91d93b884385b9"
+    console.log("Initial ID = " + this.idTraveler);
+
+    this.apiService.getFirstTravelerFromDB().subscribe((res: Traveler) =>{
+      if (res._id) this.idTraveler = res._id;
+      console.log("Got first traveler in DB for TAB 2, traveler info: ");
+      console.log(res);
+    });
+
+
    }
 
    onClickTrip(trip: Trip){
@@ -45,7 +56,7 @@ export class Tab2Page {
 
   getTrips(){
     this.apiService.getTrips().subscribe(async data => {
-      await delay(1500);
+      await delay(1000);
       console.log(<Trip[]>data);
       this.trips = <Trip[]>data;
     })

@@ -1,9 +1,7 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 var travelerSchema = new mongoose.Schema({
-    trips:[{ type: Schema.Types.ObjectId, ref: 'Trip' }],
     firstname: {
         type: String,
         required: true,        
@@ -11,11 +9,11 @@ var travelerSchema = new mongoose.Schema({
     lastname: {
         type: String,
         required: true,        
-    }
+    },
+    trips:[{ type: Schema.Types.ObjectId, ref: 'Trip' }],
 });
 
 var tripSchema = new mongoose.Schema({
-    travelers: [{ type: Schema.Types.ObjectId, ref: 'Traveler' }],
     country: String,
     city: String,
     place: {
@@ -36,6 +34,7 @@ var tripSchema = new mongoose.Schema({
         max: 10
     },
     notes: String,
+    travelers: [{ type: Schema.Types.ObjectId, ref: 'Traveler' }]
 });
 
 tripSchema.index( { notes: "text" }) // Indexes the notes field to be able to search in the notes

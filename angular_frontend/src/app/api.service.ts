@@ -67,14 +67,26 @@ export class APIService {
   }
 
   public getTravelers(): Observable<Traveler[]>{
-    console.log("Pidiendo trips");
+    console.log("Getting all travelers from DB");
     var url = BASE_URL + TRAVELERS_URL;
       return this.http.get(url, options).pipe(map((res: Response) => {
       console.log("HTTP Code: " + res.status);
       var action = "Got Travelers From Server";
-      var trips =  <Traveler[]>res.json();
+      var travelers =  <Traveler[]>res.json();
       this.presentToast(res.status.toString(), action);
-      return trips;
+      return travelers;
+    }));
+  }
+
+  public getFirstTravelerFromDB(): Observable<Traveler>{
+    console.log("Getting first Traveler from DB");
+    var url = BASE_URL + TRAVELERS_URL + "/first";
+      return this.http.get(url, options).pipe(map((res: Response) => {
+      console.log("HTTP Code: " + res.status);
+      var action = "Got First Traveler From Server to work on Tab2";
+      var firstTravelerInDB =  <Traveler>res.json();
+      //this.presentToast(res.status.toString(), action);
+      return firstTravelerInDB;
     }));
   }
 
