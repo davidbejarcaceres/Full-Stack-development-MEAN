@@ -7,9 +7,8 @@ var multer = require("multer");
 const fs = require('fs');
 const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
 var travelersUploads = pathPublicServer +'images/tripsImages';
+var imagesBulk = pathPublicServer + "images";
 const path = require('path');
-
-
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -20,7 +19,7 @@ var sendJSONresponse = function(res, status, content) {
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const travelerID = (req.params.id) ? req.params.id : "userID";
-        const tripID = (req.params.idTrip) ? req.params.id : "tripID";
+        const tripID = (req.params.idTrip) ? req.params.id : "anyTrip";
         var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
         if (folderexsits) {
             console.log("Folder exists");
@@ -35,8 +34,36 @@ var storage = multer.diskStorage({
     filename: function(req, file, callback) {
         console.log(file)
         const travelerID = (req.params.id) ? req.params.id : "userID";
+        const tripID = (req.params.idTrip) ? req.params.id : "anyTrip";
+        if (req.params.idTrip) {
+            callback(null, tripID +  '-' + Date.now() + path.extname(file.originalname))
+        } else {
+            callback(null, file.originalname +  '-' + Date.now() + path.extname(file.originalname))
+        }        
+    }
+  });
+
+// SET STORAGE
+var storage2 = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const travelerID = (req.params.id) ? req.params.id : "userID";
         const tripID = (req.params.idTrip) ? req.params.id : "tripID";
-        callback(null, tripID +  '-' + Date.now() + path.extname(file.originalname))
+        var folderexsits = fs.existsSync(travelersUploads + "/" + travelerID)
+        if (folderexsits) {
+            console.log("Folder exists");
+            folderUpload = travelersUploads + "/" + travelerID;
+        } else{
+            console.log("NO FOLDER FOR THAT USER!");
+            fs.mkdirSync(travelersUploads + "/" + travelerID);
+            folderUpload = travelersUploads + "/" + travelerID;
+        }
+      cb(null, imagesBulk)
+    },
+    filename: function(req, file, callback) {
+        console.log(file)
+        const travelerID = (req.params.id) ? req.params.id : "userID";
+        const tripID = (req.params.idTrip) ? req.params.id : "tripID";
+        callback(null, "img"+  '-' + Date.now() + path.extname(file.originalname))
     }
   });
 
@@ -195,6 +222,46 @@ module.exports.uploadImage = function (req, res) {
 }
 
 
+// Travelers add image to his bulkfolder no trip lonked to the image
+module.exports.uploadImageBulk = function (req, res) {
+    if (!req.params.id) return res.status(404).send({message: "No traveler with that id"});
+
+    console.log(req.body);
+    let upload = multer({
+        storage: storage,
+        fileFilter: function(req, file, callback) {
+            let ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(res.end('Only images are allowed'), null)
+            }
+            callback(null, true)
+        }
+    }).single('userFile');
+    upload(req, res, function(err) {
+        res.end('File has uploaded')
+    })
+}
+
+// Uploads an image to the server and links to the traveler and the trip
+module.exports.travelerUploadsImage = function (req, res) {
+    const travelerID = (req.params.id) ? req.params.id : "userID";
+    console.log(req.body);
+    let upload = multer({
+        storage: storage,
+        fileFilter: function(req, file, callback) {
+            let ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(res.end('Only images are allowed'), null)
+            }
+            callback(null, true)
+        }
+    }).single('userFile');
+    upload(req, res, function(err) {
+        res.end('File has uploaded')
+    })
+}
+
+
 // GET List of images of the player
 module.exports.getImagesURLs = function (req, res, next) {
     var list= [];
@@ -276,4 +343,74 @@ module.exports.getImageFileFromTraveler = function (req, res, next) {
             res.sendFile( folderImages + imageName);
         }
     })
+};
+
+
+// Uploads an image to the server and links to the traveler and the trip
+module.exports.uploadImageBucket = function (req, res) {
+    console.log(req.body);
+    let upload = multer({
+        storage: storage2,
+        fileFilter: function(req, file, callback) {
+            let ext = path.extname(file.originalname)
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+                return callback(res.end('Only images are allowed'), null)
+            }
+            callback(null, true)
+        }
+    }).single('userFile');
+    upload(req, res, function(err) {
+        res.end('File has uploaded')
+    })
+}
+
+
+// Uploads an image to the server and links to the traveler and the trip
+module.exports.deletesImage = function (req, res) {
+    if(!req.body.img) res.send("No image found").status(404)
+    var  pathImage = (req.body.img).toString();
+
+
+    var deleteUpToChar = 0;
+    for (let index = 0; index < pathImage.length; index++) {
+       console.log(pathImage[index]);
+       if (pathImage[index] === "i" && pathImage[index+1] === "m" && pathImage[index+2] === "a" && pathImage[index+3] === "g" && pathImage[index+4] === "e" && pathImage[index+5] === "s" && pathImage[index+6] === "/") {
+        var deleteUpToChar = index;
+       }
+    }
+    var fileNAME = pathImage.slice(deleteUpToChar+7, pathImage.length);
+    var startPath = "C:/Users/Public/node/meanFinal/public/images/tripsImages"
+
+    fromDir(startPath, fileNAME, res);
+
+}
+
+
+
+
+function fromDir(startPath,filter, res){
+
+    //console.log('Starting from dir '+startPath+'/');
+
+    if (!fs.existsSync(startPath)){
+        console.log("no dir ",startPath);
+        return;
+    }
+
+    var files= fs.readdirSync(startPath);
+    for(var i=0;i<files.length;i++){
+        var filename=path.join(startPath,files[i]);
+        var stat = fs.lstatSync(filename);
+        if (stat.isDirectory()){
+            fromDir(filename,filter); //recurse
+        }
+        else if (filename.indexOf(filter)>=0) {
+            console.log('-- found: ',filename);
+            
+            fs.unlink(filename, callback =>  {
+                console.log(callback);
+            });
+            res.send("OK").status(200);
+        };
+    };
 };

@@ -16,6 +16,9 @@ export class EditTripPage implements OnInit {
   url : string = "http://www.google.com/search?q=";
   idTraveler: string;
 
+  selectedFile: File
+
+
   constructor(public activatedRoute: ActivatedRoute, private apiService: APIService, private router: Router, private navControler: NavController) {
     this.activatedRoute.params.subscribe(param => {
       this.trip =  <Trip>JSON.parse(param.trip);
@@ -120,6 +123,21 @@ export class EditTripPage implements OnInit {
   deleteTrip(){
     this.apiService.deleteTrip(this.idTraveler ,this.trip._id);
     this.goHome();
+  }
+
+  onFileChanged(event) {
+    console.log("CAHNGES FILE:");
+    //Gets the file from the form when file changes has been detected
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    
+  }
+
+  onUpload(){
+    console.log("uploading");
+    const uploadData = new FormData();
+    uploadData.append('userFile', this.selectedFile, this.selectedFile.name);
+    this.apiService.travelerPostTripImage(uploadData, this.idTraveler, this.trip._id);
   }
 
 

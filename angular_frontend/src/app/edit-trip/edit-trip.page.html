@@ -74,6 +74,37 @@
     
               <ion-col class="ion-justify-content-center" size-lg="3" size-xl="3" size-md="3" size-sm="9" size-xs="12">
     
+
+
+                  <ion-card class="card-manager" button=true routerDirection="forward">
+                      <ion-card-header>
+                        <ion-card-title>Upload images to this trip</ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <p>You can upload a photo to this specific trip</p>
+                        <!-- Icons -->
+
+                      <div class="buttons-images">
+                          <input
+                          style="display: none"
+                          type="file" name='userFile' (change)="onFileChanged($event)"
+                          #fileInput>
+                        <ion-button expand="full"  (click)="fileInput.click()">
+                          Select
+                          <ion-icon slot="end" name="image"></ion-icon>
+                        </ion-button>
+
+                        <ion-button expand="full"  (click)="onUpload()">
+                          Upload
+                            <ion-icon slot="end" name="cloud-upload">                                  
+                            </ion-icon>
+                        </ion-button>
+
+                      </div>                          
+                      </ion-card-content>
+                    </ion-card>
+
+
                   <ion-button (click)="deleteTrip()" expand="block">
                       <ion-ripple-effect></ion-ripple-effect>
                       Delete Trip

@@ -68,6 +68,7 @@ export class Tab2Page {
     this.navControler.navigateForward(["tabs/tab2/add-trip", { id: this.idTraveler}]);
   }
 
+
   getImagesUrls(){
     this.apiService.getTravelersImagesList(this.idTraveler).subscribe(async data => {
       await delay(1500);
@@ -90,6 +91,13 @@ export class Tab2Page {
         this.lista.push(url);        
       });
     })
+  }
+
+  deleteImage(urlLista){
+    console.log("DELETING");
+    console.log(urlLista);
+  
+    this.apiService.deleteImage(urlLista);
   }
 
   getResources(){

@@ -17,6 +17,10 @@ const BASE_URL = 'http://localhost:3000/api/';
 
 const TRIPS_URL = 'trips';
 const TRAVELERS_URL = 'travelers';
+var URL_BULK_IMAGES: string = 'http://localhost:3000/api/images';
+
+
+
 
 var headers = new Headers({ 'Content-Type': 'application/json' });
 var options = new RequestOptions({ headers: headers,
@@ -216,8 +220,8 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
     this.http.delete(urlDeleteTraveler, _id)
     .subscribe( 
           response => {
-                        console.log("Game Deleted " + response.status);
-                        var action = "Game deleted";
+                        console.log("Traveler Deleted " + response.status);
+                        var action = "Traveler deleted";
                         this.presentToast(response.status.toString(), action );                                                   
                       },
          error => {
@@ -245,6 +249,64 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
                         console.log(error.text());
         });
   }
+
+  travelerPostImage(uploadData: FormData, idTraveler: string){
+    var urlTravelerImages: string = `http://localhost:3000/api/trips/${idTraveler}/images`;
+    this.http.post(urlTravelerImages, uploadData)
+    .subscribe( response => {
+                              if (response.status == 200) {
+                                  console.log("Image Added " + response.status);
+                                  var action = "Image Added";
+                                  this.presentToast(response.status.toString(), action ); 
+                              } else {
+                                  console.log("Error Uploading " + response.status);
+                                  var action = "Error Uploading";
+                                  this.presentToast(response.status.toString(), action);
+                              }
+                                                                                
+                        },
+                    error => {                          
+                              this.presentToast((500).toString(), "Not Added" );  
+                              console.log(error.text());
+                    });
+}
+
+deleteImage(urlLista: string){
+  var urlImage: string = `http://localhost:3000/api/images`;
+  this.http.put(urlImage, { img: urlLista}, options)
+    .subscribe( 
+          response => {
+                        console.log("Image Deleted " + response.status);
+                        var action = "Image deleted";
+                        this.presentToast(response.status.toString(), action );                                                   
+                      },
+         error => {                        
+                        console.log(error.text());
+        });
+}
+
+travelerPostTripImage(uploadData: FormData, idTraveler: string, idTrip: string){
+  var urlTravelerTripImages: string = `http://localhost:3000/api/trips/${idTraveler}/images/${idTrip}`;
+  this.http.post(urlTravelerTripImages, uploadData)
+  .subscribe( response => {
+                            if (response.status == 200) {
+                                console.log("Image Added " + response.status);
+                                var action = "Image Added";
+                                this.presentToast(response.status.toString(), action ); 
+                            } else {
+                                console.log("Error Uploading " + response.status);
+                                var action = "Error Uploading";
+                                this.presentToast(response.status.toString(), action);
+                            }
+                                                                              
+                      },
+                  error => {                          
+                            this.presentToast((500).toString(), "Not Added" );  
+                            console.log(error.text());
+                  });
+}
+
+
 
 
   async presentToast(code: string, action: string) {

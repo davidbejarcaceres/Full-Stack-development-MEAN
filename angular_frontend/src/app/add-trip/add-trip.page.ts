@@ -1,9 +1,12 @@
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { Trip } from '../models/tripInterface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from '../api.service';
 import { TripClass } from '../models/TripClass';
+
+var headers = new Headers({ 'Content-Type': 'undefined' });
+var options = new RequestOptions({headers: headers});
 
 @Component({
   selector: 'app-add-trip',
@@ -11,6 +14,9 @@ import { TripClass } from '../models/TripClass';
   styleUrls: ['./add-trip.page.scss'],
 })
 export class AddTripPage implements OnInit {
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
 
   trip: Trip;
   idTraveler: string;
@@ -37,18 +43,9 @@ export class AddTripPage implements OnInit {
     
   }
 
-  postImage(image){
-    console.log(image);
-
-    console.log("VALUE:");
-    console.log(image.value);
-    var imagen = <File>image.value;
-    console.log(imagen);
-    
-  }
-
   onFileChanged(event) {
     console.log("CAHNGES FILE:");
+    //Gets the file from the form when file changes has been detected
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
     
@@ -56,18 +53,9 @@ export class AddTripPage implements OnInit {
 
   onUpload(){
     console.log("uploading");
-    
-  }
-
-  postFoto(form){
-    console.log(form);
-    console.log(form.value);
-    
-    
-  }
-
-
-  ngOnInit() {
+    const uploadData = new FormData();
+    uploadData.append('userFile', this.selectedFile, this.selectedFile.name);
+    this.apiService.travelerPostImage(uploadData, this.idTraveler);
   }
 
   goHome(){

@@ -37,10 +37,11 @@
 
                   <ion-card *ngIf="idTraveler"  class="card-manager" button=true (click)="goToAddTrip()" routerDirection="forward">
                       <ion-card-header>
-                        <ion-card-title>Add trips</ion-card-title>
+                        <ion-card-title>Add trips/images</ion-card-title>
                       </ion-card-header>
                       <ion-card-content>
-                        <p>Add a new trip to you log.</p>
+                        <p>Add a new trip to you log,
+                          or upload images to your personal gallery</p>
                         <!-- Icons -->
                         <ion-button expand="full">
                             <ion-icon slot="icon-only" name="add-circle"></ion-icon>
@@ -48,29 +49,7 @@
                       </ion-card-content>
                     </ion-card>
 
-                  <div *ngIf="lista">
-                    
-                    <div *ngFor="let urlLista of lista">
-                        <ion-img  src={{urlLista}}></ion-img>
-                    </div>
-                  </div>
-
-
-
-                  <div *ngIf="!lista">
-                    <ion-card *ngFor="let item of [1,2,3,4,5]" class="welcome-card" button=true>
-                      <ion-card-header>
-                        <ion-card-subtitle><ion-skeleton-text width="100%"></ion-skeleton-text></ion-card-subtitle>
-                        <ion-card-title><ion-skeleton-text animated width="100%"></ion-skeleton-text></ion-card-title>
-                      </ion-card-header>
-                      <ion-card-content>
-                        <ion-skeleton-text animated width="100%"></ion-skeleton-text>
-                        <ion-skeleton-text animated width="100%"></ion-skeleton-text>
-                        <ion-skeleton-text animated width="100%"></ion-skeleton-text>
-                        <ion-skeleton-text animated width="100%"></ion-skeleton-text>
-                      </ion-card-content>
-                    </ion-card>
-                  </div>
+                  
                     
 
             </ion-col>
@@ -157,6 +136,41 @@
                   </ion-card>
 
             </div>
+
+
+
+            <div *ngIf="lista">
+                    
+                <div *ngFor="let urlLista of lista">
+                    <ion-card *ngIf="idTraveler"  class="card-manager" button=true routerDirection="forward">
+                        <ion-card-header>
+                          <ion-img  src={{urlLista}}></ion-img>
+                          <ion-card-title></ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-button expand="block" size="small" shape="round" (click)="deleteImage(urlLista)">Delete</ion-button>
+                        </ion-card-content>
+                      </ion-card>
+                    
+                </div>
+              </div>
+
+
+
+              <div *ngIf="!lista">
+                <ion-card class="card-manager" *ngFor="let item of [1,2,3,4,5]" button=true>
+                  <ion-card-header>
+                    <ion-card-subtitle><ion-skeleton-text width="100%"></ion-skeleton-text></ion-card-subtitle>
+                    <ion-card-title><ion-skeleton-text animated width="100%"></ion-skeleton-text></ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-skeleton-text animated width="100%"></ion-skeleton-text>
+                    <ion-skeleton-text animated width="100%"></ion-skeleton-text>
+                    <ion-skeleton-text animated width="100%"></ion-skeleton-text>
+                    <ion-skeleton-text animated width="100%"></ion-skeleton-text>
+                  </ion-card-content>
+                </ion-card>
+              </div>
           </ion-col>
     
         </ion-row>

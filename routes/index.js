@@ -77,6 +77,7 @@ router.get('/res', function(req, res, next) {
                     fs.readdir(pathLevel4, { withFileTypes: true },  (err, subFiles2) => {
                       for (var file3 in subFiles2) {
                         list.push("    -  " + subFiles2[file3].name)
+                        
               
                         // Checks if the file is a folder
                         var extension = path.extname(subFiles2[file3].name)          
