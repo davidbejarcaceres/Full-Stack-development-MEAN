@@ -51,7 +51,7 @@ export class APIService {
   }
 
   public getTripsFromTraveler(idTraveler: string): Observable<Trip[]>{
-    var url = (`http://localhost:3000/api/travelers/${idTraveler}/trips`);
+    var url = (`${BASE_URL}travelers/${idTraveler}/trips`);
     
       return this.http.get(url, options).pipe(map((res: Response) => {
       console.log("HTTP Code: " + res.status);
@@ -87,7 +87,7 @@ export class APIService {
   }
 
   public getTravelersImagesList(idTraveler: string): Observable<[]>{
-      var url = `http://localhost:3000/api/travelers/${idTraveler}/images/url`
+      var url = `${BASE_URL}travelers/${idTraveler}/images/url`
       return this.http.get(url, options).pipe(map((res: Response) => {
       var action = "Got Travelers From Server";
       var urlURLs =  <[]>res.json();
@@ -97,7 +97,7 @@ export class APIService {
   }
 
   public getTravelersImagesNames(idTraveler: string): Observable<[]>{
-    var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/names`);
+    var url = (`${BASE_URL}travelers/${idTraveler}/images/names`);
     console.log("GETTING IMAGES NAMES WITH PATH:");
     console.log(url);
     return this.http.get(url, options).pipe(map((res: Response) => {
@@ -109,12 +109,12 @@ export class APIService {
 }
 
 public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
-  var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/names`);
+  var url = (`${BASE_URL}travelers/${idTraveler}/images/names`);
   return this.http.get(url, options).pipe(map((res: Response) => {
   var respuesta =  <[]>res.json();
   var Imagesresoruces: string[];
   respuesta.forEach(name => {
-    var url = (`http://localhost:3000/api/travelers/${idTraveler}/images/${name}`);
+    var url = (`${BASE_URL}travelers/${idTraveler}/images/${name}`);
     Imagesresoruces.push(url);        
   });
   return Imagesresoruces;
@@ -188,7 +188,7 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
 
   updateTrip(trip: TripClass) {
     var urlUpdateTrip = BASE_URL + TRIPS_URL + "/" + trip.id;
-    var url = `http://localhost:3000/api//travelers/5ce96fa9cc91d93b884385b9/trips/5ced394ef03be409a83d56e4`
+    var url = `${BASE_URL}travelers/5ce96fa9cc91d93b884385b9/trips/5ced394ef03be409a83d56e4`
     console.log(urlUpdateTrip);
     this.http.put(urlUpdateTrip, trip, options)
     .subscribe( 
@@ -204,7 +204,7 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
   }
 
   updateTripByTraveler(trip: TripClass, idTraveler: string) {
-    var url = `http://localhost:3000/api/travelers/${idTraveler}/trips/${trip.id}`
+    var url = `${BASE_URL}travelers/${idTraveler}/trips/${trip.id}`
     console.log(url);
     this.http.put(url, trip, options)
     .subscribe( 
@@ -240,7 +240,7 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
 
 
   deleteTrip( idTraveler: string ,_idTrip: string) {
-    var url = (`http://localhost:3000/api/travelers/${idTraveler}/trips/${_idTrip}`);
+    var url = (`${BASE_URL}travelers/${idTraveler}/trips/${_idTrip}`);
 
     console.log(url);
     
@@ -259,7 +259,7 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
   }
 
   travelerPostImage(uploadData: FormData, idTraveler: string){
-    var urlTravelerImages: string = `http://localhost:3000/api/trips/${idTraveler}/images`;
+    var urlTravelerImages: string = `${BASE_URL}trips/${idTraveler}/images`;
     this.http.post(urlTravelerImages, uploadData)
     .subscribe( response => {
                               if (response.status == 200) {
@@ -280,7 +280,7 @@ public getTravelersImagesResources(idTraveler: string): Observable<string[]>{
 }
 
 deleteImage(urlLista: string){
-  var urlImage: string = `http://localhost:3000/api/images`;
+  var urlImage: string = `${BASE_URL}images`;
   this.http.put(urlImage, { img: urlLista}, options)
     .subscribe( 
           response => {
@@ -294,7 +294,7 @@ deleteImage(urlLista: string){
 }
 
 travelerPostTripImage(uploadData: FormData, idTraveler: string, idTrip: string){
-  var urlTravelerTripImages: string = `http://localhost:3000/api/trips/${idTraveler}/images/${idTrip}`;
+  var urlTravelerTripImages: string = `${BASE_URL}trips/${idTraveler}/images/${idTrip}`;
   this.http.post(urlTravelerTripImages, uploadData)
   .subscribe( response => {
                             if (response.status == 200) {
@@ -325,3 +325,4 @@ travelerPostTripImage(uploadData: FormData, idTraveler: string, idTrip: string){
   }
 
 }
+
