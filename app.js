@@ -8,8 +8,6 @@ var favicon = require('serve-favicon')
 require("./api_server/models/db");
 var cors = require('cors')
 
-
-
 var indexRouter = require('./routes/index');
 var routerApi = require("./api_server/routes/index");
 
@@ -28,7 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon' , 'favicon.ico')))
 
-
 const options = {
   origin: true,
   "Access-Control-Allow-Credentials": true,
@@ -39,8 +36,6 @@ const options = {
 };
 
 app.use(cors()) // CORS Policy allows to all
-
-
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
