@@ -376,7 +376,7 @@ module.exports.deletesImage = function (req, res) {
        }
     }
     var fileNAME = pathImage.slice(deleteUpToChar+7, pathImage.length);
-    var startPath = "C:/Users/Public/node/meanFinal/public/images/tripsImages"
+    var startPath = "/home/dbc770/Full-Stack-development-MEAN/public/images/tripsImages"
 
     fromDir(startPath, fileNAME, res);
 }
