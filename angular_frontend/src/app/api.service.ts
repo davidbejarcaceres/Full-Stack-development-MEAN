@@ -12,10 +12,10 @@ import { Url } from 'url';
  * @author David Béjar Cáceres
  * 2019 dbc770@inlumine.ual.es
  */
-const BASE_URL = 'http://localhost:3000/api/';
+const BASE_URL = 'http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/';
 const TRIPS_URL = 'trips';
 const TRAVELERS_URL = 'travelers';
-var URL_BULK_IMAGES: string = 'http://localhost:3000/api/images';
+var URL_BULK_IMAGES: string = 'http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/images';
 
 
 var headers = new Headers({ 'Content-Type': 'application/json' });

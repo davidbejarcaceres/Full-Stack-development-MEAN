@@ -13,6 +13,9 @@ var routerApi = require("./api_server/routes/index");
 
 var app = express();
 
+//const PORT = 3000;
+//app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
