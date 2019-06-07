@@ -1,0 +1,8 @@
+{"_id":{"$oid":"5ce96fa9cc91d93b884385b9"},"trips":[{"$oid":"5ce96fa9cc91d93b884385ba"},{"$oid":"5ced2f8df03be409a83d56e2"},{"$oid":"5ced394ef03be409a83d56e4"},{"$oid":"5ced39b7f03be409a83d56e6"},{"$oid":"5ced3ac7289d644440d91b1c"},{"$oid":"5cee4f1df373b02bb03c6414"},{"$oid":"5cee78bdfdf2723bc0c54ab4"}],"firstname":"David","lastname":"Bejar","__v":0}
+{"_id":{"$oid":"5ce971587083a93040d17792"},"trips":[{"$oid":"5ce971587083a93040d17793"}],"firstname":"Andy","lastname":"Rubin","__v":0}
+{"_id":{"$oid":"5ce984ecdfc7c838c87e3b4e"},"trips":[{"$oid":"5ce971587083a93040d17793"},{"$oid":"5ce96fa9cc91d93b884385ba"}],"firstname":"Jared","lastname":"Letto","__v":0}
+{"_id":{"$oid":"5cebf8bbf8efae50488478ae"},"trips":[],"firstname":"Andy","lastname":"Rubin","__v":0}
+{"_id":{"$oid":"5cec100404f05a45c4b91f38"},"trips":[],"firstname":"Juan","lastname":"Lopez","__v":0}
+{"_id":{"$oid":"5cec150304f05a45c4b91f3c"},"trips":[],"firstname":"Andrew","lastname":"Collins","__v":0}
+{"_id":{"$oid":"5cee4805f373b02bb03c6411"},"trips":[],"firstname":"Will","lastname":"Smith","__v":0}
+{"_id":{"$oid":"5cee4ba6f373b02bb03c6412"},"trips":[],"firstname":"Xin Jin","lastname":"Pin","__v":0}

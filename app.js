@@ -7,11 +7,15 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon')
 require("./api_server/models/db");
 var cors = require('cors')
+const PORT = 8080;
+
 
 var indexRouter = require('./routes/index');
 var routerApi = require("./api_server/routes/index");
 
 var app = express();
+
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
