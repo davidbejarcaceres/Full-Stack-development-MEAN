@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const pathPublicServer = "c:/Users/Public/node/meanFinal/public/";
+const pathPublicServer = "/home/dbc770/Full-Stack-development-MEAN/public/";
 var travelersUploads = pathPublicServer +'images/tripsImages';
 
 var sendJSONresponse = function(res, status, content) {
