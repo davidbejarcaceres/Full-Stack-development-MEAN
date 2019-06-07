@@ -16,7 +16,7 @@ var loaded = dbref.install(mongoose);
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {
-    console.log('Mongoose connected to ' + CosmoDBUri);
+    console.log('Mongoose connected to ' + "mongodb://mytrips/mytrips.documents.azure.com:10255/Mytrips3");
 });
 mongoose.connection.on('error', function(err) {
     console.log('Mongoose connection error: ' + err);
