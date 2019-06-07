@@ -4,6 +4,7 @@ Full Stack development: Mongoose (MongoDB), Express, Angular (Ionic4-Angular), N
 Run the project:
 
 ```
+  $ mongorestore --host localhost --db Mytrips
   $ npm start
   $ cd angular_frontend
   $ ionic serve
