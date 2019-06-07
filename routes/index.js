@@ -57,13 +57,7 @@ router.get('/res', function(req, res, next) {
             if (extension == "") {
   
               pathLevel3 = pathPublicServer+ file.name + "/" + subFiles1[file1].name;
-  
-  
-  
-  
               ///////////////////////
-  
-  
               fs.readdir(pathLevel3, { withFileTypes: true } , (err, files2) => {
                 files2.forEach(file2 => {
                   console.log(file2);
@@ -73,35 +67,21 @@ router.get('/res', function(req, res, next) {
                     
                     fs.readdir(pathLevel4, { withFileTypes: true },  (err, subFiles2) => {
                       for (var file3 in subFiles2) {
-                        list.push("    -  " + subFiles2[file3].name)
-                        
-              
+                        list.push("    -  " + subFiles2[file3].name)                      
                         // Checks if the file is a folder
                         var extension = path.extname(subFiles2[file3].name)          
                         if (extension == "") {
                           console.log("It´s another folder");                                                    
-                        }
-                                  
+                        }         
                       }
                       res.status(200).send(list)
                     });
-  
-  
-                    
-            
                   }
                 });
               });
-  
-  
               //////////////////////////
-  
-             
             }
-            
-  
           }
-
         });      
       }
     });

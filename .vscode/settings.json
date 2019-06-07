@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/719c397d-52f9-4ba6-a5a3-f51c3e9549dd/resourceGroups/cnsa19-123ABC/providers/Microsoft.Web/sites/TravelBlogUAL",
+    "appService.deploySubpath": "angular_frontend\\www"
+}
