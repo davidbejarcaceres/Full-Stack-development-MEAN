@@ -88,7 +88,7 @@ export class Tab2Page {
       this.urlImages.forEach(url => {
         console.log(url);              
       });
-      var url = `http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/travelers/${this.idTraveler}/images/names`;
+      var url = `http://192.168.43.116:8181/api/travelers/${this.idTraveler}/images/names`;
     })
   }
 
@@ -98,7 +98,7 @@ export class Tab2Page {
       this.urlimagesNames = data;
       console.log(this.urlimagesNames);
       this.urlimagesNames.forEach(name => {
-        var url = (`http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/travelers/${this.idTraveler}/images/${name}`);
+        var url = (`http://192.168.43.116:8181/api/travelers/${this.idTraveler}/images/${name}`);
         this.lista.push(url);        
       });
     })

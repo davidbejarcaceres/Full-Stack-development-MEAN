@@ -13,8 +13,10 @@ var routerApi = require("./api_server/routes/index");
 
 var app = express();
 
-//const PORT = 3000;
-//app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+const PORT = 8181;
+app.listen(PORT, '192.168.43.116', function() {
+  console.log("... port %d in %s mode", PORT, app.settings.env);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
