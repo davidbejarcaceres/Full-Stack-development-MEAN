@@ -1,33 +1,17 @@
 # Full-Stack-development-MEAN
 Full Stack development: Mongoose (MongoDB), Express, Angular (Ionic4-Angular), NodeJS.
 
-Run the project:
-
-  $npm start
-  $cd angular_frontend
-  $ionic serve
-
-For Production in azure use:
-
-$ sudo nodemon
-$ cd angular_frontend
-$ ionic build --prod
-$ ng serve --host 10.0.1.9 --port 8080 --public-host http://dbc770nodejs.westeurope.cloudapp.azure.com --disableHostCheck true
+This implementation runs in android, Nodejs server compiles and runs in android using Termux.
+The Ionic Angualr Client is an app installed on the phone and gets info from the Nodejs server, Nodejs server access Azure CosmoDB for the info.
 
 
-OR using PWA:
-
-For Production in azure use:
-
-$ sudo nodemon
-$ cd angular_frontend
-$ ionic build --prod
-$ http-server ./www -p 8080
+Build the app on the computer and install as android APK:
+  $ ionic cordova run android --prod
 
 
-For production in local
-$ sudo nodemon
-$ cd angular_frontend
-$ ionic build --prod
-$ http-server ./www -p 8080
+Run the project on the phone:
+  $ npm start
+
+
+  
 

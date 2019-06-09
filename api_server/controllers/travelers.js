@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const pathPublicServer = "C:/Users/Public/node/meanFinal/public/";
+const pathPublicServer = "/data/data/com.termux/files/home/Full-Stack-development-MEAN/public/";
 var travelersUploads = pathPublicServer +'images/tripsImages';
 
 var sendJSONresponse = function(res, status, content) {
