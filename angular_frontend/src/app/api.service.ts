@@ -69,8 +69,11 @@ export class APIService {
       console.log("HTTP Code: " + res.status);
       var action = "Got Travelers From Server";
       var travelers =  <Traveler[]>res.json();
-      this.presentToast(res.status.toString(), action);
+      //this.presentToast(res.status.toString(), action);
       return travelers;
+    }, error => {
+      console.log(error.text());
+      this.presentToast("ERROR",error.text());
     }));
   }
 
@@ -89,9 +92,9 @@ export class APIService {
   public getTravelersImagesList(idTraveler: string): Observable<[]>{
       var url = `${BASE_URL}travelers/${idTraveler}/images/url`
       return this.http.get(url, options).pipe(map((res: Response) => {
-      var action = "Got Travelers From Server";
+      var action = "Got Travelers Image list from Server";
       var urlURLs =  <[]>res.json();
-      this.presentToast(res.status.toString(), action);
+      //this.presentToast(res.status.toString(), action);
       return urlURLs;
     }));
   }
@@ -103,7 +106,7 @@ export class APIService {
     return this.http.get(url, options).pipe(map((res: Response) => {
     var action = "Got Images From Server";
     var imagesNames =  <[]>res.json();
-    this.presentToast(res.status.toString(), action);
+    this.presentToast(res.status.toString(), res.status.toString());
     return imagesNames;
   }));
 }

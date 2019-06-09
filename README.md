@@ -22,7 +22,7 @@ For Production in azure use:
 $ sudo nodemon
 $ cd angular_frontend
 $ ionic build --prod
-$ http-server ./ww -p 8080
+$ http-server ./www -p 8080
 
 
 For production in local
