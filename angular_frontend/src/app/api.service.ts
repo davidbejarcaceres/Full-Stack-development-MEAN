@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { Traveler } from './models/travelerInterface';
 import { TripClass } from './models/TripClass';
 import { Url } from 'url';
+//import { HTTP } from '@ionic-native/http/ngx';
 
 /**
  * @author David Béjar Cáceres
