@@ -3,7 +3,7 @@ var router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-const pathPublicServer = "/home/dbc770/Full-Stack-development-MEAN/public/";
+const pathPublicServer = "C:/Users/Public/node/meanFinal/public/";
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
