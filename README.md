@@ -37,3 +37,7 @@ $ cd angular_frontend
 $ cd www
 $ angular-http-server
 
+
+Problems with node-sass npm module:
+
+sudo npm install --save-dev  --unsafe-perm node-sass
