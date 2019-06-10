@@ -1,13 +1,13 @@
 # Full-Stack-development-MEAN
 Full Stack development: Mongoose (MongoDB), Express, Angular (Ionic4-Angular), NodeJS.
 
-Run the project:
+Run the project (Windows, for Linux change Path to serve static resources ):
 
   $ npm start
   $ cd angular_frontend
   $ ionic serve
 
-For Production in azure use:
+For Production in azure use (Linux user dbc770, change paths if needed for other OSs):
 
   $ sudo nodemon
   $ cd angular_frontend
