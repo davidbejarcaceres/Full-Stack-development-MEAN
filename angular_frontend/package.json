@@ -1,7 +1,7 @@
 {
   "name": "angular_frontend",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
+  "version": "1.0.0",
+  "author": "David Bejar Caceres",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
