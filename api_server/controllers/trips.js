@@ -210,7 +210,7 @@ module.exports.uploadImage = function (req, res) {
         storage: storage,
         fileFilter: function(req, file, callback) {
             let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.webp') {
                 return callback(res.end('Only images are allowed'), null)
             }
             callback(null, true)
