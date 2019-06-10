@@ -13,10 +13,13 @@ import { Url } from 'url';
  * @author David Béjar Cáceres
  * 2019 dbc770@inlumine.ual.es
  */
-const BASE_URL = 'http://localhost:3000/api/';
+
+// AZURE APP SERVICE URL: https://mytripsnodejs.azurewebsites.net/api/
+// Azure Master Ansible VM Ubuntu: http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/
+const BASE_URL = 'http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/';
 const TRIPS_URL = 'trips';
 const TRAVELERS_URL = 'travelers';
-var URL_BULK_IMAGES: string = 'http://localhost:3000/api/images';
+var URL_BULK_IMAGES: string = 'http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/images';
 
 var headers = new Headers({ 'Content-Type': 'application/json' });
 var options = new RequestOptions({ headers: headers,
@@ -324,6 +327,10 @@ travelerPostTripImage(uploadData: FormData, idTraveler: string, idTrip: string){
       mode: "ios"
     });
     toast.present();
+  }
+
+  getBaseURL(): String{
+    return BASE_URL;
   }
 
 }

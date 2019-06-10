@@ -88,19 +88,19 @@ export class Tab2Page {
       this.urlImages.forEach(url => {
         console.log(url);              
       });
-      var url = `http://localhost:3000/api/travelers/${this.idTraveler}/images/names`;
+      var url = `http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/travelers/${this.idTraveler}/images/names`;
     })
   }
 
   getImagesNames(){
     this.apiService.getTravelersImagesNames(this.idTraveler).subscribe(async data => {
-      await delay(1500);
       this.urlimagesNames = data;
       console.log(this.urlimagesNames);
       this.urlimagesNames.forEach(name => {
-        var url = (`http://localhost:3000/api/travelers/${this.idTraveler}/images/${name}`);
+        var url = (`http://dbc770nodejs.westeurope.cloudapp.azure.com:3000/api/travelers/${this.idTraveler}/images/${name}`);
         this.lista.push(url);        
       });
+      this.getResources();
     })
   }
 
@@ -126,7 +126,7 @@ export class Tab2Page {
 
 ngOnInit(): void {
   this.getImagesNames();
-  this.getResources();
+  //this.getResources();
 }
 
 ionViewWillEnter() {
