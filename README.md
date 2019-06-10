@@ -1,6 +1,9 @@
 # Full-Stack-development-MEAN
 Full Stack development: Mongoose (MongoDB), Express, Angular (Ionic4-Angular), NodeJS.
 
+Build Ionic-Angular-Front-End:
+ng build --prod --buildOptimizer=true --aot=true --optimization=true
+
 Run the project (Windows, for Linux change Path to serve static resources ):
 
   $ npm start
@@ -22,12 +25,12 @@ For Production in azure VM Master Ansible use:
 $ sudo nodemon
 $ cd angular_frontend
 $ ionic build --prod
-$ http-server ./www -p 8080
+$ angular-http-server ./www -p 8080
 
 
 For production in local
 $ sudo nodemon
 $ cd angular_frontend
 $ ionic build --prod
-$ http-server ./www -p 8080
+$ angular-http-server ./www -p 8080
 
