@@ -233,7 +233,7 @@ module.exports.uploadImage = function (req, res) {
         console.log(newImage);
         var imagesPath = `public/images/tripsImages/${travelerID}`
 
-        imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+        imagemin([`${imagesPath}/*.{jpg,png,JPG,JPEG,jpeg}`], imagesPath, {
             use: [
                 imageminWebp({quality: 50})
             ]
@@ -270,8 +270,8 @@ module.exports.uploadImageBulk = function (req, res) {
          console.log(newImage);
          var imagesPath = `public/images/tripsImages/${travelerID}`
  
-         imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
-             use: [
+         imagemin([`${imagesPath}/*.{jpg,png,JPG,JPEG,jpeg}`], imagesPath, {
+            use: [
                  imageminWebp({quality: 50})
              ]
          }).then(() => {
@@ -305,8 +305,8 @@ module.exports.travelerUploadsImage = function (req, res) {
          console.log(newImage);
          var imagesPath = `public/images/tripsImages/${travelerID}`
  
-         imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
-             use: [
+         imagemin([`${imagesPath}/*.{jpg,png,JPG,JPEG,jpeg}`], imagesPath, {
+            use: [
                  imageminWebp({quality: 50})
              ]
          }).then(() => {
@@ -423,7 +423,7 @@ module.exports.uploadImageBucket = function (req, res) {
         console.log(newImage);
         var imagesPath = `public/images/tripsImages/${travelerID}`
 
-        imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+        imagemin([`${imagesPath}/*.{jpg,png,JPG,JPEG,jpeg}`], imagesPath, {
             use: [
                 imageminWebp({quality: 50})
             ]
