@@ -6,7 +6,6 @@ var dbTraveler = mongoose.model("Traveler");
 const fs = require('fs');
 const path = require('path');
 
-
 const pathPublicServer = "C:/Users/Public/node/meanFinal/public/";
 var travelersUploads = pathPublicServer +'images/tripsImages';
 
@@ -180,7 +179,7 @@ module.exports.travelerUpdateByID = function (req, res) {
             return res.status(404).send({message: "Bad request"});
         } else {
             // Checks if no values are passed
-            travelerOld.trips =  ((req.body.trips) ? travelerOld.trips.push(req.body.trips) : travelerOld.trips)
+            //travelerOld.trips =  ((req.body.trips) ? travelerOld.trips.push(req.body.trips) : travelerOld.trips)
             travelerOld.firstname =  ((req.body.firstname) ? req.body.firstname : travelerOld.firstname)
             travelerOld.lastname = ((req.body.lastname) ? req.body.lastname : travelerOld.lastname)
 
