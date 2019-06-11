@@ -5,10 +5,15 @@ var dbTrips = mongoose.model("Trip");
 var dbTraveler = mongoose.model("Traveler");
 var multer = require("multer");
 const fs = require('fs');
+var imagemin = require('imagemin');
+var imageminWebp = require('imagemin-webp');
 const pathPublicServer = "/home/dbc770/Full-Stack-development-MEAN/public/";
 var travelersUploads = pathPublicServer +'images/tripsImages';
 var imagesBulk = pathPublicServer + "images";
 const path = require('path');
+
+var newImage = "";
+var folderUpload = "";
 
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
@@ -29,6 +34,7 @@ var storage = multer.diskStorage({
             fs.mkdirSync(travelersUploads + "/" + travelerID);
             folderUpload = travelersUploads + "/" + travelerID;
         }
+        newImage = folderUpload;
       cb(null, folderUpload)
     },
     filename: function(req, file, callback) {
@@ -36,9 +42,13 @@ var storage = multer.diskStorage({
         const travelerID = (req.params.id) ? req.params.id : "userID";
         const tripID = (req.params.idTrip) ? req.params.id : "anyTrip";
         if (req.params.idTrip) {
-            callback(null, tripID +  '-' + Date.now() + path.extname(file.originalname))
+            var imageName = tripID +  '-' + Date.now() + path.extname(file.originalname);
+            callback(null, imageName);
+            newImage += "/" + imageName;
         } else {
-            callback(null, file.originalname +  '-' + Date.now() + path.extname(file.originalname))
+            var imageName = file.originalname +  '-' + Date.now() + path.extname(file.originalname);
+            callback(null, imageName)
+            newImage += "/" + imageName;
         }        
     }
   });
@@ -68,6 +78,7 @@ var storage2 = multer.diskStorage({
   });
 
    
+
 
 // GET ALL TRIPS: api/trips
 module.exports.tripList = function(req, res, next) {    
@@ -210,13 +221,30 @@ module.exports.uploadImage = function (req, res) {
         storage: storage,
         fileFilter: function(req, file, callback) {
             let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.webp' && ext !== '.JPG') {
                 return callback(res.end('Only images are allowed'), null)
             }
             callback(null, true)
         }
     }).single('userFile');
     upload(req, res, function(err) {
+
+        // Converts uploaded images to webp format 
+        console.log(newImage);
+        var imagesPath = `public/images/tripsImages/${travelerID}`
+
+        imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+            use: [
+                imageminWebp({quality: 50})
+            ]
+        }).then(() => {
+            console.log('Images optimized');
+            // DELETES OLD IMAGE
+            fs.unlink(newImage, callback =>  {
+                console.log(callback);
+            });
+        });
+
         res.end('File has uploaded')
     })
 }
@@ -230,13 +258,30 @@ module.exports.uploadImageBulk = function (req, res) {
         storage: storage,
         fileFilter: function(req, file, callback) {
             let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.webp' && ext !== '.JPG') {
                 return callback(res.end('Only images are allowed'), null)
             }
             callback(null, true)
         }
     }).single('userFile');
     upload(req, res, function(err) {
+
+         // Converts uploaded images to webp format 
+         console.log(newImage);
+         var imagesPath = `public/images/tripsImages/${travelerID}`
+ 
+         imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+             use: [
+                 imageminWebp({quality: 50})
+             ]
+         }).then(() => {
+             console.log('Images optimized');
+             // DELETES OLD IMAGE
+             fs.unlink(newImage, callback =>  {
+                 console.log(callback);
+             });
+         });
+
         res.end('File has uploaded')
     })
 }
@@ -249,13 +294,28 @@ module.exports.travelerUploadsImage = function (req, res) {
         storage: storage,
         fileFilter: function(req, file, callback) {
             let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.webp' && ext !== '.JPG') {
                 return callback(res.end('Only images are allowed'), null)
             }
             callback(null, true)
         }
     }).single('userFile');
     upload(req, res, function(err) {
+         // Converts uploaded images to webp format 
+         console.log(newImage);
+         var imagesPath = `public/images/tripsImages/${travelerID}`
+ 
+         imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+             use: [
+                 imageminWebp({quality: 50})
+             ]
+         }).then(() => {
+             console.log('Images optimized');
+             // DELETES OLD IMAGE
+             fs.unlink(newImage, callback =>  {
+                 console.log(callback);
+             });
+         });
         res.end('File has uploaded')
     })
 }
@@ -352,13 +412,28 @@ module.exports.uploadImageBucket = function (req, res) {
         storage: storage2,
         fileFilter: function(req, file, callback) {
             let ext = path.extname(file.originalname)
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.webp' && ext !== '.JPG') {
                 return callback(res.end('Only images are allowed'), null)
             }
             callback(null, true)
         }
     }).single('userFile');
     upload(req, res, function(err) {
+        // Converts uploaded images to webp format 
+        console.log(newImage);
+        var imagesPath = `public/images/tripsImages/${travelerID}`
+
+        imagemin([`${imagesPath}/*.{jpg,png}`], imagesPath, {
+            use: [
+                imageminWebp({quality: 50})
+            ]
+        }).then(() => {
+            console.log('Images optimized');
+            // DELETES OLD IMAGE
+            fs.unlink(newImage, callback =>  {
+                console.log(callback);
+            });
+        });
         res.end('File has uploaded')
     })
 }
@@ -370,7 +445,7 @@ module.exports.deletesImage = function (req, res) {
     var  pathImage = (req.body.img).toString();
     var deleteUpToChar = 0;
     for (let index = 0; index < pathImage.length; index++) {
-       console.log(pathImage[index]);
+       //console.log(pathImage[index]);
        if (pathImage[index] === "i" && pathImage[index+1] === "m" && pathImage[index+2] === "a" && pathImage[index+3] === "g" && pathImage[index+4] === "e" && pathImage[index+5] === "s" && pathImage[index+6] === "/") {
         var deleteUpToChar = index;
        }
@@ -401,6 +476,9 @@ function fromDir(startPath,filter, res){
             
             fs.unlink(filename, callback =>  {
                 console.log(callback);
+                // if (callback == null) {
+                //     res.send("OK").status(404);
+                // }
             });
             res.send("OK").status(200);
         };
