@@ -6,7 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon')
 require("./api_server/models/db");
-var cors = require('cors')
+var cors = require('cors');
+
 
 var indexRouter = require('./routes/index');
 var routerApi = require("./api_server/routes/index");
