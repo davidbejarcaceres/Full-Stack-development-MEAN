@@ -253,6 +253,7 @@ module.exports.uploadImage = function (req, res) {
 module.exports.uploadImageBulk = function (req, res) {
     if (!req.params.id) return res.status(404).send({message: "No traveler with that id"});
     console.log(req.body);
+    var travelerID=  req.params.id;
     let upload = multer({
         storage: storage,
         fileFilter: function(req, file, callback) {

@@ -131,7 +131,7 @@ module.exports.findInDB = function(req, res, next) {
     dbTraveler.find({$or:[{firstname: req.params.query}, {lastname: req.params.query}]}).exec(function (err, travelers) {
         if (err) return res.status(404).send(err);
         return res.status(200).send(travelers);
-      });
+    });
 };
 
 // POST ADD Trip /api/trips
